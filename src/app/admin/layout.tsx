@@ -46,7 +46,6 @@ export default function AdminLayout(props: DashboardLayoutProps) {
           setToggleSidebar,
         }}
       >
-        <Sidebar routes={routes} display="none" {...rest} />
         <Box
           float="right"
           minHeight="100vh"
@@ -61,7 +60,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
           transitionProperty="top, bottom, width"
           transitionTimingFunction="linear, linear, ease"
         >
-          <Portal>
+          {/* <Portal>
             <Box>
               <Navbar
                 onOpen={onOpen}
@@ -73,7 +72,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
                 {...rest}
               />
             </Box>
-          </Portal>
+          </Portal> */}
 
           <Box
             mx="auto"
