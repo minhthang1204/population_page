@@ -1,17 +1,15 @@
 // Chakra imports
-import { Portal, Box, useDisclosure } from '@chakra-ui/react'
+import { Box, Portal, useDisclosure } from '@chakra-ui/react'
 import Footer from 'components/footer/FooterAdmin'
 // Layout components
 import Navbar from 'components/navbar/NavbarAdmin'
 import Sidebar from 'components/sidebar/Sidebar'
-import { SidebarContext } from 'contexts/SidebarContext'
 import { PropsWithChildren, useEffect, useState } from 'react'
 import routes from 'routes'
 import {
   getActiveNavbar,
   getActiveNavbarText,
-  getActiveRoute,
-  isWindowAvailable
+  getActiveRoute
 } from 'utils/navigation'
 
 interface DashboardLayoutProps extends PropsWithChildren {
@@ -33,12 +31,12 @@ export default function AdminLayout (props: DashboardLayoutProps) {
 
   return (
     <Box>
-      <SidebarContext.Provider
+      {/* <SidebarContext.Provider
         value={{
           toggleSidebar,
           setToggleSidebar
         }}
-      >
+      > */}
         <Sidebar routes={routes} display='none' {...rest} />
         <Box
           float='right'
@@ -81,7 +79,7 @@ export default function AdminLayout (props: DashboardLayoutProps) {
             <Footer />
           </Box>
         </Box>
-      </SidebarContext.Provider>
+      {/* </SidebarContext.Provider> */}
     </Box>
   )
 }
