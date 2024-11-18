@@ -19,6 +19,7 @@ import {
 import { MdBarChart } from 'react-icons/md';
 import MapChart from './MapChart';
 import GradientBar from './PeopleDescription';
+import PopulationChart from './PopulationChart';
 
 export default function WeeklyRevenue(props: { [x: string]: any }) {
   const { ...rest } = props;
@@ -60,13 +61,7 @@ export default function WeeklyRevenue(props: { [x: string]: any }) {
         </Flex>
       </Flex>
       <Flex w="100%" flexDirection={{ base: 'row', lg: 'row' }}>
-        <Box minH="260px" minW="75%" mt="auto">
-          {/* <LineChart chartData={lineChartDataTotalSpent} chartOptions={lineChartOptionsTotalSpent} /> */}
-          <MapChart />
-        </Box>
-        <Box justifySelf={'center'} alignSelf={'center'}>
-          <GradientBar />
-        </Box>
+      <PopulationChart />
       </Flex>
     </Card>
   );
