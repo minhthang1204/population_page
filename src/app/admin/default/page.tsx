@@ -10,7 +10,7 @@ import {
 // import MiniCalendar from 'components/calendar/MiniCalendar';
 import Header from 'components/card/Header';
 import IconBox from 'components/icons/IconBox';
-import CheckTable from 'views/admin/default/components/CheckTable';
+import CheckTable from 'views/admin/default/components/PopulationStats';
 import ComplexTable from 'views/admin/default/components/ComplexTable';
 import DailyTraffic from 'views/admin/default/components/DailyTraffic';
 import PieCard from 'views/admin/default/components/PieCard';
@@ -19,6 +19,7 @@ import TotalSpent from 'views/admin/default/components/TotalSpent';
 import WeeklyRevenue from 'views/admin/default/components/WeeklyRevenue';
 import tableDataCheck from 'views/admin/default/variables/tableDataCheck';
 import tableDataComplex from 'views/admin/default/variables/tableDataComplex';
+import PopulationStats from 'views/admin/default/components/PopulationStats';
 // Assets
 
 export default function Default() {
@@ -43,7 +44,7 @@ export default function Default() {
         <WeeklyRevenue />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <CheckTable tableData={tableDataCheck} />
+        <PopulationStats  />
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <DailyTraffic />
           <PieCard />

@@ -1,61 +1,52 @@
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import React from 'react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
-// Đăng ký các thành phần cần thiết của Chart.js
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+const data = [
+  { age: '0-04', male: -6, female: 5 },
+  { age: '05-09', male: -5.5, female: 5 },
+  { age: '10-14', male: -5, female: 4.8 },
+  { age: '15-19', male: -4.8, female: 4.7 },
+  { age: '20-24', male: -5.2, female: 5.1 },
+  { age: '25-29', male: -5.5, female: 5.3 },
+  { age: '30-34', male: -4.9, female: 4.6 },
+  { age: '35-39', male: -4.5, female: 4.3 },
+  { age: '40-44', male: -4.1, female: 4.2 },
+  { age: '45-49', male: -3.8, female: 3.7 },
+  { age: '50-54', male: -3.4, female: 3.3 },
+  { age: '55-59', male: -3, female: 2.9 },
+  { age: '60-64', male: -2.6, female: 2.5 },
+  { age: '65-69', male: -2.1, female: 2.2 },
+  { age: '70-74', male: -1.7, female: 1.8 },
+  { age: '75-79', male: -1.2, female: 1.3 },
+  { age: '80+', male: -0.8, female: 1 },
+];
 
 const PopulationPyramid = () => {
-  // Dữ liệu dân số
-  const data = {
-    labels: ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80+'],
-    datasets: [
-      {
-        label: 'Nam',
-        data: [-5, -6, -7, -8, -9, -10, -12, -12, -10, -9, -8, -7, -5, -4, -3, -2, -1], // Dữ liệu âm cho biểu đồ bên trái
-        backgroundColor: 'blue',
-      },
-      {
-        label: 'Nữ',
-        data: [5, 6, 7, 8, 9, 10, 12, 12, 10, 9, 8, 7, 5, 4, 3, 2, 1], // Dữ liệu dương cho biểu đồ bên phải
-        backgroundColor: 'purple',
-      },
-    ],
-  };
-
-  // Tùy chọn biểu đồ
-  const options = {
-    indexAxis: 'y' as const, // Biểu đồ ngang
-    scales: {
-      x: {
-        ticks: {
-          callback: (value) => Math.abs(value), // Hiển thị giá trị dương
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        position: 'bottom',
-      },
-      tooltip: {
-        callbacks: {
-          label: (tooltipItem) => {
-            const value = tooltipItem.raw;
-            return `${tooltipItem.dataset.label}: ${Math.abs(value)}%`;
-          },
-        },
-      },
-    },
-  };
-
   return (
-    <div style={{ width: '50%', margin: '0 auto' }}>
-      <h3 style={{ textAlign: 'center' }}>Tháp dân số (%)</h3>
-      <Bar data={data} options={options} />
-      <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px' }}>
-        <span style={{ color: 'blue' }}>NAM</span>
-        <span style={{ color: 'purple' }}>NỮ</span>
-      </div>
-    </div>
+    <ResponsiveContainer width="100%" height={500}>
+      <BarChart layout="vertical" data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          type="number"
+          domain={[-10, 10]}
+          tickFormatter={(value: number) => `${Math.abs(value)}%`}
+        />
+
+        <YAxis type="category" dataKey="age" />
+        <Tooltip formatter={(value: number) => `${Math.abs(value)}%`} />
+
+        <Bar dataKey="male" fill="#4285F4" stackId="a" />
+        <Bar dataKey="female" fill="#AA46BE" stackId="a" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 

@@ -20,6 +20,7 @@ import { MdBarChart } from 'react-icons/md';
 import MapChart from './MapChart';
 import GradientBar from './PeopleDescription';
 import PopulationChart from './PopulationChart';
+import GaugeChart from './GaugeChart';
 
 export default function WeeklyRevenue(props: { [x: string]: any }) {
   const { ...rest } = props;
@@ -62,6 +63,7 @@ export default function WeeklyRevenue(props: { [x: string]: any }) {
       </Flex>
       <Flex w="100%" flexDirection={{ base: 'row', lg: 'row' }}>
       <PopulationChart />
+      <GaugeChart />
       </Flex>
     </Card>
   );
