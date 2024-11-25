@@ -1,206 +1,76 @@
-import { Box, Flex, Icon, Progress, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react';
-import {
-	createColumnHelper,
-	flexRender,
-	getCoreRowModel,
-	getSortedRowModel,
-	SortingState,
-	useReactTable
-} from '@tanstack/react-table';
-// Custom components
-import Card from 'components/card/Card';
-import Menu from 'components/menu/MainMenu';
-import * as React from 'react';
-// Assets
-import { MdCancel, MdCheckCircle, MdOutlineError } from 'react-icons/md';
+import { Box, Text, Flex, Icon, VStack, HStack, Card } from '@chakra-ui/react';
+import { FaCity, FaGlobe, FaTractor, FaMale, FaFemale } from 'react-icons/fa';
 
+export default function ComplexTable() {
+  return (
+    <Card
+      w="100%"
+      borderColor={'#07a6f0'}
+      borderWidth={'1px'}
+      alignItems="center"
+      justifyContent="space-evenly"
+    >
+      <Box p={5}>
+        <Text fontSize="xl" fontWeight="bold" textAlign="center" mb={4}>
+          Tuổi kết hôn trung bình lần đầu
+        </Text>
+        <Text fontSize="sm" textAlign="right" mb={6}>
+          Đơn vị: Tuổi
+        </Text>
 
+        {/* Section 1: Thành thị, Toàn quốc, Nông thôn */}
+        <Flex justify="space-around" align="center" mb={10}>
+          <VStack spacing={3}>
+            <Icon as={FaCity} boxSize={10} color="yellow.400" />
+            <Text fontWeight="bold">Thành thị</Text>
+            <Box bg="yellow.100" px={4} py={2} borderRadius="md">
+              <Text fontWeight="bold" fontSize="lg">
+                26,4
+              </Text>
+            </Box>
+          </VStack>
+          <VStack spacing={3}>
+            <Icon as={FaGlobe} boxSize={10} color="purple.400" />
+            <Text fontWeight="bold">Toàn quốc</Text>
+            <Box bg="purple.100" px={4} py={2} borderRadius="md">
+              <Text fontWeight="bold" fontSize="lg">
+                25,2
+              </Text>
+            </Box>
+          </VStack>
+          <VStack spacing={3}>
+            <Icon as={FaTractor} boxSize={10} color="green.400" />
+            <Text fontWeight="bold">Nông thôn</Text>
+            <Box bg="green.100" px={4} py={2} borderRadius="md">
+              <Text fontWeight="bold" fontSize="lg">
+                24,5
+              </Text>
+            </Box>
+          </VStack>
+        </Flex>
 
-type RowObj = {
-	name: string;
-	status: string;
-	date: string; 
-	progress: number;
-};
-
-const columnHelper = createColumnHelper<RowObj>();
-
-// const columns = columnsDataCheck;
-export default function ComplexTable(props: { tableData: any }) {
-	const { tableData } = props;
-	const [ sorting, setSorting ] = React.useState<SortingState>([]);
-	const textColor = useColorModeValue('secondaryGray.900', 'white');
-	const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
-	let defaultData = tableData;
-	const columns = [
-		columnHelper.accessor('name', {
-			id: 'name',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					NAME
-				</Text>
-			),
-			cell: (info: any) => (
-				<Flex align='center'>
-					<Text color={textColor} fontSize='sm' fontWeight='700'>
-						{info.getValue()}
-					</Text>
-				</Flex>
-			)
-		}),
-		columnHelper.accessor('status', {
-			id: 'status',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					STATUS
-				</Text>
-			),
-			cell: (info) => (
-			<Flex align='center'>
-												<Icon
-													w='24px'
-													h='24px'
-													me='5px'
-													color={
-														info.getValue() === 'Approved' ? (
-															'green.500'
-														) : info.getValue() === 'Disable' ? (
-															'red.500'
-														) : info.getValue() === 'Error' ? (
-															'orange.500'
-														) : null
-													}
-													as={
-														info.getValue() === 'Approved' ? (
-															MdCheckCircle
-														) : info.getValue() === 'Disable' ? (
-															MdCancel
-														) : info.getValue() === 'Error' ? (
-															MdOutlineError
-														) : null
-													}
-												/>
-												<Text color={textColor} fontSize='sm' fontWeight='700'>
-													{info.getValue()}
-												</Text>
-											</Flex> 
-			)
-		}),
-		columnHelper.accessor('date', {
-			id: 'date',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					DATE
-				</Text>
-			),
-			cell: (info) => (
-				<Text color={textColor} fontSize='sm' fontWeight='700'>
-					{info.getValue()}
-				</Text>
-			)
-		}),
-		columnHelper.accessor('progress', {
-			id: 'progress',
-			header: () => (
-				<Text
-					justifyContent='space-between'
-					align='center'
-					fontSize={{ sm: '10px', lg: '12px' }}
-					color='gray.400'>
-					PROGRESS
-				</Text>
-			),
-			cell: (info) => (
-				<Flex align='center'>
-					<Progress variant='table' colorScheme='brandScheme' h='8px' w='108px' value={info.getValue()} />
-				</Flex>
-			)
-		})
-	];
-	const [ data, setData ] = React.useState(() => [ ...defaultData ]);
-	const table = useReactTable({
-		data,
-		columns,
-		state: {
-			sorting
-		},
-		onSortingChange: setSorting,
-		getCoreRowModel: getCoreRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		debugTable: true
-	});
-	return (
-		<Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-			<Flex px='25px' mb="8px" justifyContent='space-between' align='center'>
-				<Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
-					Complex Table
-				</Text>
-				<Menu />
-			</Flex>
-			<Box>
-				<Table variant='simple' color='gray.500' mb='24px' mt="12px">
-					<Thead>
-						{table.getHeaderGroups().map((headerGroup) => (
-							<Tr key={headerGroup.id}>
-								{headerGroup.headers.map((header) => {
-									return (
-										<Th
-											key={header.id}
-											colSpan={header.colSpan}
-											pe='10px' 
-											borderColor={borderColor}
-											cursor='pointer'
-											onClick={header.column.getToggleSortingHandler()}>
-											<Flex
-												justifyContent='space-between'
-												align='center'
-												fontSize={{ sm: '10px', lg: '12px' }}
-												color='gray.400'>
-												{flexRender(header.column.columnDef.header, header.getContext())}{{
-													asc: '',
-													desc: '',
-												}[header.column.getIsSorted() as string] ?? null}
-											</Flex>
-										</Th>
-									);
-								})}
-							</Tr>
-						))}
-					</Thead>
-					<Tbody>
-						{table.getRowModel().rows.slice(0, 5).map((row) => {
-							return (
-								<Tr key={row.id}>
-									{row.getVisibleCells().map((cell) => {
-										return (
-											<Td
-												key={cell.id}
-												fontSize={{ sm: '14px' }}
-												minW={{ sm: '150px', md: '200px', lg: 'auto' }}
-												borderColor='transparent'>
-												{flexRender(cell.column.columnDef.cell, cell.getContext())}
-											</Td>
-										);
-									})}
-								</Tr>
-							);
-						})}
-					</Tbody>
-				</Table>
-			</Box>
-		</Card>
-	);
+        {/* Section 2: Nam và Nữ */}
+        <Flex justify="space-around" align="center">
+          <VStack spacing={3}>
+            <Icon as={FaMale} boxSize={10} color="blue.400" />
+            <Text fontWeight="bold">Nam</Text>
+            <Box bg="blue.100" px={4} py={2} borderRadius="md">
+              <Text fontWeight="bold" fontSize="lg">
+                27,2
+              </Text>
+            </Box>
+          </VStack>
+          <VStack spacing={3}>
+            <Icon as={FaFemale} boxSize={10} color="red.400" />
+            <Text fontWeight="bold">Nữ</Text>
+            <Box bg="red.100" px={4} py={2} borderRadius="md">
+              <Text fontWeight="bold" fontSize="lg">
+                23,1
+              </Text>
+            </Box>
+          </VStack>
+        </Flex>
+      </Box>
+    </Card>
+  );
 }
- 

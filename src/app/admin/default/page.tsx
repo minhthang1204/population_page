@@ -20,6 +20,8 @@ import WeeklyRevenue from 'views/admin/default/components/WeeklyRevenue';
 import tableDataCheck from 'views/admin/default/variables/tableDataCheck';
 import tableDataComplex from 'views/admin/default/variables/tableDataComplex';
 import PopulationStats from 'views/admin/default/components/PopulationStats';
+import UserActivity from 'views/admin/default/components/UserActivity';
+import SexatBirth from 'views/admin/default/components/SexatBirth';
 // Assets
 
 export default function Default() {
@@ -49,13 +51,18 @@ export default function Default() {
           <PieCard />
         </SimpleGrid>
       </SimpleGrid>
-      {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <ComplexTable tableData={tableDataComplex} />
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+        <ComplexTable />
+        <ComplexTable />
+
+        {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <Tasks />
-          <MiniCalendar h="100%" minW="100%" selectRange={false} />
-        </SimpleGrid>
-      </SimpleGrid> */}
+        </SimpleGrid> */}
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+          <UserActivity />
+          <SexatBirth />
+      </SimpleGrid>
     </Box>
   );
 }

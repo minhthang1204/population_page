@@ -1,51 +1,67 @@
-// Chakra imports
-import { Box, Flex, Select, Text, useColorModeValue } from '@chakra-ui/react'
-import { ApexOptions } from 'apexcharts'
-import Card from 'components/card/Card'
-// Custom components
-import BarChart from 'components/charts/BarChart'
-import {
-  barChartDataUserActivity,
-  barChartOptionsUserActivity
-} from 'variables/charts'
+import { Box, Text, Flex, VStack, Card } from '@chakra-ui/react';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
-export default function UserActivity (props: { [x: string]: any }) {
-  const { ...rest } = props
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-  // Chakra Color Mode
-  const textColor = useColorModeValue('secondaryGray.900', 'white')
+export default function UserActivity() {
+  const data = {
+    labels: ['Được cán bộ y tế đỡ đẻ'],
+    datasets: [
+      {
+        data: [95.4, 4.6], // 95.4% cho "Được cán bộ y tế đỡ đẻ", 4.6% là phần còn lại
+        backgroundColor: ['#FF6B6B', '#E0E0E0'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: { display: false }, // Tắt hiển thị chú thích
+      tooltip: { enabled: false }, // Tắt tooltip
+    },
+    cutout: '70%', // Làm rỗng giữa biểu đồ
+  };
+
   return (
-    <Card alignItems='center' flexDirection='column' w='100%' {...rest}>
-      <Flex align='center' w='100%' px='15px' py='10px'>
-        <Text
-          me='auto'
-          color={textColor}
-          fontSize='xl'
-          fontWeight='700'
-          lineHeight='100%'
-        >
-          User Activity
+    <Card
+      w="100%"
+      borderColor={'#07a6f0'}
+      borderWidth={'1px'}
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box p={5} borderWidth="1px" borderRadius="lg" maxW="400px" mx="auto">
+        <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
+          Tỷ lệ phụ nữ 10-49 tuổi đã từng sinh được cán bộ y tế đỡ đẻ
         </Text>
-        <Select
-          id='user_type'
-          w='unset'
-          variant='transparent'
-          display='flex'
-          alignItems='center'
-          defaultValue='Weekly'
-        >
-          <option value='Weekly'>Weekly</option>
-          <option value='Daily'>Daily</option>
-          <option value='Monthly'>Monthly</option>
-        </Select>
-      </Flex>
-
-      <Box h='240px' mt='auto'>
-        <BarChart
-          chartData={barChartDataUserActivity}
-          chartOptions={(barChartOptionsUserActivity as unknown) as ApexOptions}
-        />
+        <Text fontSize="sm" textAlign="right" mb={6}>
+          Đơn vị: %
+        </Text>
+        <Box position="relative">
+          {/* Biểu đồ tròn */}
+          <Pie data={data} options={options} />
+          {/* Số liệu hiển thị trong vòng tròn */}
+          <Flex
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            align="center"
+            justify="center"
+            flexDirection="column"
+          >
+            <Text fontSize="2xl" fontWeight="bold" color="red.500">
+              95,4
+            </Text>
+            <Text fontSize="sm" textAlign="center">
+              Được cán bộ y tế đỡ đẻ
+            </Text>
+          </Flex>
+        </Box>
       </Box>
     </Card>
-  )
+  );
 }
