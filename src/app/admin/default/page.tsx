@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Box,
-  Icon,
-  SimpleGrid,
-  useColorModeValue
-} from '@chakra-ui/react';
+import { Box, Icon, SimpleGrid, useColorModeValue } from '@chakra-ui/react';
 // Custom components
 // import MiniCalendar from 'components/calendar/MiniCalendar';
 import Header from 'components/card/Header';
@@ -22,6 +17,9 @@ import tableDataComplex from 'views/admin/default/variables/tableDataComplex';
 import PopulationStats from 'views/admin/default/components/PopulationStats';
 import UserActivity from 'views/admin/default/components/UserActivity';
 import SexatBirth from 'views/admin/default/components/SexatBirth';
+import InfantMortalityRate from 'views/admin/default/components/InfantMortalityRate';
+import AverageLifeExpectancy from 'views/admin/default/components/AverageLifeExpectancy';
+import MigrationAndUrbanization from 'views/admin/default/components/MigrationAndUrbanization';
 // Assets
 
 export default function Default() {
@@ -46,7 +44,7 @@ export default function Default() {
         <WeeklyRevenue />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <PopulationStats  />
+        <PopulationStats />
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <PieCard />
         </SimpleGrid>
@@ -60,8 +58,15 @@ export default function Default() {
         </SimpleGrid> */}
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-          <UserActivity />
-          <SexatBirth />
+        <UserActivity />
+        <SexatBirth />
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+        <InfantMortalityRate />
+        <AverageLifeExpectancy />
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <MigrationAndUrbanization />
       </SimpleGrid>
     </Box>
   );
