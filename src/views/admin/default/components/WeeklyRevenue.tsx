@@ -61,7 +61,7 @@ export default function WeeklyRevenue(props: { [x: string]: any }) {
           </Text>
         </Flex>
       </Flex>
-      <Flex w="100%" flexDirection={{ base: 'row', lg: 'row' }}>
+      <Flex w="100%" flexDirection={{ base: 'row', lg: 'row' , sm: 'column', md: 'column'}}>
       <PopulationChart />
       <GaugeChart />
       </Flex>

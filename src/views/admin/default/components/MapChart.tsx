@@ -43,7 +43,7 @@ const MapChart = () => {
             position: 'absolute',
             top: tooltipPosition.y + 10,
             left: tooltipPosition.x + 10,
-            background: 'white',
+            background: '#FFFFCC',
             padding: '5px 10px',
             borderRadius: '5px',
             boxShadow: '0 2px 5px rgba(0,0,0,0.3)',

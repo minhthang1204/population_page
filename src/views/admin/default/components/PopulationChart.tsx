@@ -9,6 +9,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import axiosInstance from '../../../../../utils/axiosInstance';
+import apiEndpoints from '../../../../../utils/apiConfig';
+import { useQuery } from '@tanstack/react-query';
 
 const data = [
   { age: '0-04', male: -6, female: 5 },
@@ -30,16 +33,31 @@ const data = [
   { age: '80+', male: -0.8, female: 1 },
 ];
 
+const fetchUsers = async () => {
+  const params = { ageMin: 40, ageMax: 60, gender: 'Nam' };
+  const response = await axiosInstance.post(apiEndpoints.users, null, {
+    params,
+  });
+  return response.data;
+};
+
 const PopulationPyramid = () => {
   const [genderFilter, setGenderFilter] = useState('all');
-const [districtFilter, setDistrictFilter] = useState('all');
+  const [districtFilter, setDistrictFilter] = useState('all');
 
-// Lọc dữ liệu dựa trên bộ lọc
-const filteredData = data.filter((item) => {
-  const genderMatch = genderFilter === 'all' || item.gender === genderFilter;
-  const districtMatch = districtFilter === 'all' || item.district === districtFilter;
-  return genderMatch && districtMatch;
-});
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery({ queryKey: ['users'], queryFn: fetchUsers });
+
+  // Lọc dữ liệu dựa trên bộ lọc
+  const filteredData = data.filter((item) => {
+    const genderMatch = genderFilter === 'all' || item.gender === genderFilter;
+    const districtMatch =
+      districtFilter === 'all' || item.district === districtFilter;
+    return genderMatch && districtMatch;
+  });
   return (
     <Box mb="5">
       {/* Bộ lọc */}
