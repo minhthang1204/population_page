@@ -26,55 +26,59 @@ const InfantMortalityRate = () => {
         <Text textAlign="center" mb={6} fontSize="sm">
           Đơn vị: Trẻ em dưới 1 tuổi tử vong trên 1000 trẻ sinh sống
         </Text>
+        <Flex justifyContent="center" mt={6}>
+          <Flex align="center" mx={2}>
+            <Box width="20px" height="20px" bg={colors.chung} mr={2} />
+            <Text fontSize="sm">Chung</Text>
+          </Flex>
+          <Flex align="center" mx={2}>
+            <Box width="20px" height="20px" bg={colors.nam} mr={2} />
+            <Text fontSize="sm">Nam</Text>
+          </Flex>
+          <Flex align="center" mx={2}>
+            <Box width="20px" height="20px" bg={colors.nu} mr={2} />
+            <Text fontSize="sm">Nữ</Text>
+          </Flex>
+        </Flex>
         <Flex
           justifyContent="space-around"
           alignItems="flex-end"
           height="300px"
         >
-          <Flex justifyContent="center" mt={6}>
-            <Flex align="center" mx={2}>
-              <Box width="20px" height="20px" bg={colors.chung} mr={2} />
-              <Text fontSize="sm">Chung</Text>
-            </Flex>
-            <Flex align="center" mx={2}>
-              <Box width="20px" height="20px" bg={colors.nam} mr={2} />
-              <Text fontSize="sm">Nam</Text>
-            </Flex>
-            <Flex align="center" mx={2}>
-              <Box width="20px" height="20px" bg={colors.nu} mr={2} />
-              <Text fontSize="sm">Nữ</Text>
-            </Flex>
-          </Flex>
           {data.map((item, index) => (
             <Flex
               key={index}
-              flexDir="row"
+              flexDir="column"
               alignItems="flex-end"
-              justifyContent="flex-end"
+              justifyContent="space-around"
             >
-              <Box
-                bg={colors.chung}
-                width="40px"
-                height={`${item.chung * 10}px`}
-                borderRadius="md"
-              />
-              <Box
-                bg={colors.nam}
-                width="40px"
-                height={`${item.nam * 10}px`}
-                borderRadius="md"
-                mt={2}
-              />
-              <Box
-                bg={colors.nu}
-                width="40px"
-                height={`${item.nu * 10}px`}
-                borderRadius="md"
-                mt={2}
-              />
-              <Text mt={2} fontSize="sm" textAlign="center">
-                {item.label}
-              </Text>
+              <Flex alignItems="flex-end" justifyContent="flex-end" marginRight={12}>
+                <Box
+                  bg={colors.chung}
+                  width="40px"
+                  height={`${item.chung * 10}px`}
+                  borderRadius="md"
+                />
+                <Box
+                  bg={colors.nam}
+                  width="40px"
+                  height={`${item.nam * 10}px`}
+                  borderRadius="md"
+                  mt={2}
+                />
+                <Box
+                  bg={colors.nu}
+                  width="40px"
+                  height={`${item.nu * 10}px`}
+                  borderRadius="md"
+                  mt={2}
+                />
+              </Flex>
+              <Flex marginRight={12} alignSelf={'center'} justifySelf={'center'}>
+                <Text mt={2} fontSize="sm" textAlign="center">
+                  {item.label}
+                </Text>
+              </Flex>
             </Flex>
           ))}
         </Flex>

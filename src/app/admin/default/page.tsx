@@ -20,6 +20,8 @@ import SexatBirth from 'views/admin/default/components/SexatBirth';
 import InfantMortalityRate from 'views/admin/default/components/InfantMortalityRate';
 import AverageLifeExpectancy from 'views/admin/default/components/AverageLifeExpectancy';
 import MigrationAndUrbanization from 'views/admin/default/components/MigrationAndUrbanization';
+import MarriedBefore18 from 'views/admin/default/components/MarriedBefore18';
+import Graduation from 'views/admin/default/components/Graduation';
 // Assets
 
 export default function Default() {
@@ -45,28 +47,33 @@ export default function Default() {
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <PopulationStats />
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
-          <PieCard />
-        </SimpleGrid>
+        {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px"> */}
+        <PieCard />
+        {/* </SimpleGrid> */}
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+      
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        {/* <UserActivity /> */}
+        <SexatBirth />
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <InfantMortalityRate />
+        {/* <AverageLifeExpectancy /> */}
+      </SimpleGrid>
+      {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <MigrationAndUrbanization />
+      </SimpleGrid> */}
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <Graduation />
+        {/* <AverageLifeExpectancy /> */}
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <ComplexTable />
-        <ComplexTable />
+        {/* <MarriedBefore18 /> */}
 
         {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <Tasks />
         </SimpleGrid> */}
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <UserActivity />
-        <SexatBirth />
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <InfantMortalityRate />
-        <AverageLifeExpectancy />
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <MigrationAndUrbanization />
       </SimpleGrid>
     </Box>
   );

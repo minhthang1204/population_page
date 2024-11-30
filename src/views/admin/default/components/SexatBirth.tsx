@@ -9,7 +9,7 @@ export default function SexatBirth() {
       alignItems="center"
       justifyContent="center"
     >
-      <Box p={5} maxW="600px" mx="auto" borderWidth="1px" borderRadius="lg">
+      {/* <Box p={5} maxW="600px" mx="auto" borderWidth="1px" borderRadius="lg"> */}
         {/* Tiêu đề */}
         <VStack spacing={3} textAlign="center" mb={4}>
           <Text fontSize="lg" fontWeight="bold">
@@ -81,7 +81,7 @@ export default function SexatBirth() {
             </Text>
           </VStack>
         </HStack>
-      </Box>
+      {/* </Box> */}
     </Card>
   );
 }

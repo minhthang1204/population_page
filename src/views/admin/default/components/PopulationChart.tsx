@@ -1,3 +1,4 @@
+import { Box, FormControl, FormLabel, Select } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {
   BarChart,
@@ -30,50 +31,52 @@ const data = [
 ];
 
 const PopulationPyramid = () => {
-  const [genderFilter, setGenderFilter] = useState('all'); // Lọc giới tính
-  const [districtFilter, setDistrictFilter] = useState('all'); // Lọc xã/huyện
+  const [genderFilter, setGenderFilter] = useState('all');
+const [districtFilter, setDistrictFilter] = useState('all');
 
-  // Lọc dữ liệu theo bộ lọc
-  const filteredData = data.filter((item) => {
-    const genderMatch =
-      genderFilter === 'all' ||
-      (genderFilter === 'male' && item.male < 0) ||
-      (genderFilter === 'female' && item.female > 0);
-    const districtMatch =
-      districtFilter === 'all' || item?.district === districtFilter;
-    return genderMatch && districtMatch;
-  });
-
+// Lọc dữ liệu dựa trên bộ lọc
+const filteredData = data.filter((item) => {
+  const genderMatch = genderFilter === 'all' || item.gender === genderFilter;
+  const districtMatch = districtFilter === 'all' || item.district === districtFilter;
+  return genderMatch && districtMatch;
+});
   return (
-    <div>
+    <Box mb="5">
       {/* Bộ lọc */}
-      <div style={{ marginBottom: '20px' }}>
-        <label>
+      <FormControl display="flex" alignItems="center" mb="4">
+        <FormLabel htmlFor="gender-filter" mb="0">
           Giới tính:
-          <select
-            value={genderFilter}
-            onChange={(e) => setGenderFilter(e.target.value)}
-            style={{ marginLeft: '10px' }}
-          >
-            <option value="all">Tất cả</option>
-            <option value="male">Nam</option>
-            <option value="female">Nữ</option>
-          </select>
-        </label>
-        <label style={{ marginLeft: '20px' }}>
+        </FormLabel>
+        <Select
+          id="gender-filter"
+          value={genderFilter}
+          onChange={(e) => setGenderFilter(e.target.value)}
+          ml="2"
+          w="200px"
+        >
+          <option value="all">Tất cả</option>
+          <option value="male">Nam</option>
+          <option value="female">Nữ</option>
+        </Select>
+      </FormControl>
+
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
-          <select
-            value={districtFilter}
-            onChange={(e) => setDistrictFilter(e.target.value)}
-            style={{ marginLeft: '10px' }}
-          >
-            <option value="all">Tất cả</option>
-            <option value="A">Xã/Huyện A</option>
-            <option value="B">Xã/Huyện B</option>
-            <option value="C">Xã/Huyện C</option>
-          </select>
-        </label>
-      </div>
+        </FormLabel>
+        <Select
+          id="district-filter"
+          value={districtFilter}
+          onChange={(e) => setDistrictFilter(e.target.value)}
+          ml="2"
+          w="200px"
+        >
+          <option value="all">Tất cả</option>
+          <option value="A">Xã/Huyện A</option>
+          <option value="B">Xã/Huyện B</option>
+          <option value="C">Xã/Huyện C</option>
+        </Select>
+      </FormControl>
 
       {/* Biểu đồ */}
       <ResponsiveContainer width="100%" height={500}>
@@ -90,7 +93,7 @@ const PopulationPyramid = () => {
           <Bar dataKey="female" fill="#AA46BE" stackId="a" />
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </Box>
   );
 };
 

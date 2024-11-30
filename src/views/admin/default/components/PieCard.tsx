@@ -34,7 +34,7 @@ export default function Conversion(props: { [x: string]: any }) {
     tooltipTop,
     x,
     y,
-  } = usePieChart(sample, 360, 32, {
+  } = usePieChart(sample, 220, 32, {
     left: 24,
     right: 12,
   });
@@ -62,8 +62,8 @@ export default function Conversion(props: { [x: string]: any }) {
       alignItems="center"
       justifyContent="center"
     >
-      <Flex align="center" >
-        <Box pos="relative" ref={containerRef} >
+      <Flex align="center">
+        <Box pos="relative" ref={containerRef}>
           <svg width={size} height={size}>
             <Group left={size >> 1} top={size >> 1}>
               <Pie

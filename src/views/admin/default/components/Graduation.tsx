@@ -1,8 +1,6 @@
-import { Box, Card, Flex, FormControl, FormLabel, Select, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Card, Flex, Text } from '@chakra-ui/react';
 
-const ComplexTable = () => {
-  const [genderFilter, setGenderFilter] = useState('all');
+const Graduation = () => {
   // Dữ liệu biểu đồ
   const data = [
     { label: 'Toàn quốc', chung: 14.0, nam: 15.8, nu: 12.0 },
@@ -21,30 +19,18 @@ const ComplexTable = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <FormControl display="flex" alignItems="center" mb="4">
-        <FormLabel htmlFor="gender-filter" mb="0">
-          Chọn:
-        </FormLabel>
-        <Select
-          id="gender-filter"
-          value={genderFilter}
-          onChange={(e) => setGenderFilter(e.target.value)}
-          ml="2"
-          w="200px"
-        >
-          <option value="all">Tất cả</option>
-          <option value="male">Nam</option>
-          {/* map data các huyện */}
-        </Select>
-      </FormControl>
       <Box>
         <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
-          Độ tuổi kết hôn trung bình lần đầu
+          Tỷ lệ dân số trong độ tuổi đi học phổ thông nhưng không đi học phổ thông theo 
         </Text>
         <Text textAlign="center" mb={6} fontSize="sm">
-          Đơn vị: tuổi
+          Đơn vị: %
         </Text>
         <Flex justifyContent="center" mt={6}>
+          <Flex align="center" mx={2}>
+            <Box width="20px" height="20px" bg={colors.chung} mr={2} />
+            <Text fontSize="sm">Chung</Text>
+          </Flex>
           <Flex align="center" mx={2}>
             <Box width="20px" height="20px" bg={colors.nam} mr={2} />
             <Text fontSize="sm">Nam</Text>
@@ -67,6 +53,12 @@ const ComplexTable = () => {
               justifyContent="space-around"
             >
               <Flex alignItems="flex-end" justifyContent="flex-end" marginRight={12}>
+                <Box
+                  bg={colors.chung}
+                  width="40px"
+                  height={`${item.chung * 10}px`}
+                  borderRadius="md"
+                />
                 <Box
                   bg={colors.nam}
                   width="40px"
@@ -95,4 +87,4 @@ const ComplexTable = () => {
   );
 };
 
-export default ComplexTable;
+export default Graduation;
