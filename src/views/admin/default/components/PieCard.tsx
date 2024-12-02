@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { Flex, Stack, Text } from '@chakra-ui/layout';
+import { Circle, Flex, Stack, Text, VStack } from '@chakra-ui/layout';
 import { Box, Card } from '@chakra-ui/react';
 import { Group } from '@visx/group';
 import { Legend } from '@visx/legend';
@@ -11,15 +11,53 @@ import { useAnimation } from 'framer-motion';
 import MotionPieArch from '../chart/MotionPieArch';
 import usePieChart from '../chart/usePieChart';
 import { MotionBox } from './motion';
-
-const sample = [
-  { name: 'GA', value: 10, color: '#F28066' },
-  { name: 'GB', value: 8, color: '#F2E3D5' },
-  { name: 'GC', value: 12, color: '#7C8C03' },
-  { name: 'GD', value: 24, color: '#0367A6' },
-];
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '../../../../../utils/axiosInstance';
+import apiEndpoints from '../../../../../utils/apiConfig';
 
 export default function Conversion(props: { [x: string]: any }) {
+  const fetchUsers = async () => {
+    const response = await axiosInstance.get(apiEndpoints.posts);
+    return response.data;
+  };
+  const fetchAge = async () => {
+    const response = await axiosInstance.get(apiEndpoints.comments);
+    return response.data;
+  };
+  const colorMapping: any = {
+    senior: '#F28066',
+    workingAge: '#7C8C03',
+    youth: '#0367A6',
+  };
+
+  const displayNames: { [key: string]: string } = {
+    senior: '65+',
+    workingAge: '15-65',
+    youth: '0-14',
+  };
+
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['users'],
+    queryFn: ({ queryKey }) => fetchUsers(),
+  });
+
+  const {
+    data: age,
+  } = useQuery({
+    queryKey: ['age'],
+    queryFn: ({ queryKey }) => fetchAge(),
+  });
+  console.log(users);
+
+  const sample = users && Object.keys(users.data).map((key) => ({
+    name: displayNames[key] || key.toUpperCase(), // Nếu không có tên hiển thị, dùng key gốc
+    value: users.data[key],
+    color: colorMapping[key],
+  }));
   const {
     colorScale,
     containerRef,
@@ -62,7 +100,7 @@ export default function Conversion(props: { [x: string]: any }) {
       alignItems="center"
       justifyContent="center"
     >
-      <Flex align="center">
+      <Flex align="center" marginTop={12}>
         <Box pos="relative" ref={containerRef}>
           <svg width={size} height={size}>
             <Group left={size >> 1} top={size >> 1}>
@@ -105,10 +143,13 @@ export default function Conversion(props: { [x: string]: any }) {
                 />
                 <Stack spacing="1">
                   <Text whiteSpace="nowrap">
-                    <strong>Name:</strong> {tooltipData?.name}
+                    {/* <strong>Name:</strong> {
+            tooltipData?.name && displayNames[tooltipData?.name as keyof typeof displayNames]
+          } */}
                   </Text>
                   <Text whiteSpace="nowrap">
                     <strong>Value:</strong> {tooltipData?.value}
+                    {'%'}
                   </Text>
                 </Stack>
               </Flex>
@@ -128,6 +169,21 @@ export default function Conversion(props: { [x: string]: any }) {
             shapeWidth={12}
           />
         </MotionBox>
+      </Flex>
+      <Flex marginTop={12} marginLeft={12} borderTopWidth={1} borderTopColor={'#07a6f0'} alignSelf={'flex-start'}>
+        <VStack marginTop={8}>
+        <Text fontSize="lg" fontWeight="bold">
+            Chỉ số già hóa
+          </Text>
+          <Circle size="50px" bg="blue.100">
+            <Text fontSize="2xl" color="blue.600">
+              👨
+            </Text>
+          </Circle>
+          <Text fontSize="lg" fontWeight="bold">
+            {age?.data}{'%'}
+          </Text>
+        </VStack>
       </Flex>
     </Card>
   );

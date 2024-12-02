@@ -45,8 +45,8 @@ export default function usePieChart(
   const colorScale = useMemo(
     () =>
       scaleOrdinal({
-        domain: data.map(x),
-        range: data.map(color)
+        domain: data && data.map(x),
+        range: data && data.map(color)
       }),
     [data]
   );
