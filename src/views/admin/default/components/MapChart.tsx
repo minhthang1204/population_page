@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import axiosInstance from '../../../../../utils/axiosInstance';
+import apiEndpoints from '../../../../../utils/apiConfig';
+import { useQuery } from '@tanstack/react-query';
 
 // Đường dẫn tới file GeoJSON của Việt Nam
-const geoUrl = '/district.geojson';
+const geoUrl = '/caobang_districts.json';
 
-// Dữ liệu dân số (ví dụ)
-const populationData: any = {
-  'Phuc Hoa': 8000000,
-  'Cao Bang': 9000000,
-  'Quang Uyen': 12345123,
-  // Các tỉnh khác...
-};
+// // Dữ liệu dân số (ví dụ)
+// const populationData: any = {
+//   'Phuc Hoa': 8000000,
+//   'Cao Bang': 9000000,
+//   'Quang Uyen': 12345123,
+//   // Các tỉnh khác...
+// };
 
 const MapChart = () => {
   const [tooltipContent, setTooltipContent] = useState<string | null>(null);
@@ -19,20 +22,51 @@ const MapChart = () => {
     y: number;
   } | null>(null);
 
+  const fetchUsers = async () => {
+    const params = { hometown: '' };
+    const response = await axiosInstance.get(apiEndpoints.register);
+    return response.data;
+  };
+
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['peopleInMap'],
+    queryFn: ({ queryKey }) => fetchUsers(),
+  });
+
+  const populationData = users?.data;
+
   const handleMouseEnter = (geo: any, event: React.MouseEvent) => {
-    console.log('Mouse entered:', geo); // Kiểm tra sự kiện
-    const districtName = geo.properties.District;
-    const population = populationData[districtName] || 'Không có dữ liệu';
+    const provinceCode = geo.properties.OBJECTID; 
+    // Find the matching population data using DISTRICT_ID
+    const matchingDistrict = populationData.find(
+      (data: any) => data.DISTRICT_ID === provinceCode,
+    );
+
+    // Get population count or default to 0
+    const districtName = matchingDistrict?.DISTRICT || 'Cao Bang';
+    const population = matchingDistrict?.POPULATIONCOUNT || 0;
     setTooltipContent(`${districtName}: ${population.toLocaleString()} dân`);
     setTooltipPosition({ x: event.pageX, y: event.pageY });
   };
-  
+
   const handleMouseLeave = () => {
-    console.log('Mouse left'); // Kiểm tra sự kiện
     setTooltipContent(null);
     setTooltipPosition(null);
   };
-  
+
+  const renderColor = (population: number) => {
+    if (population < 80) return '#99ccff'
+    if (population < 90) return '#31a0f5'
+    if (population < 100) return '#217ec4'
+    if (population < 110) return '#1b6aa6'
+    if (population < 120) return '#1266a6'
+    if (population < 130) return '#2463d1'
+    return '#3366cc'
+  }
 
   return (
     <div style={{ position: 'relative' }}>
@@ -63,13 +97,21 @@ const MapChart = () => {
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) => {
-            const province = geographies?.filter(
-              (feature) => feature.properties.Province === 'Cao Bang',
-            );
-            return province.map((geo) => {
-              const provinceName = geo.properties.District; // Giả sử thuộc tính tên tỉnh là 'name'
-              const population = populationData[provinceName] || 0;
-              const fillColor = population > 5000000 ? '#3366cc' : '#99ccff'; // Điều chỉnh màu dựa trên dân số
+            // const province = geographies?.filter(
+            //   (feature) => feature.properties.Province === 'Cao Bang',
+            // );
+            return geographies.map((geo) => {
+              const provinceCode = geo.properties.OBJECTID; 
+              // Find the matching population data using DISTRICT_ID
+              const matchingDistrict = populationData.find(
+                (data: any) => data.DISTRICT_ID === provinceCode,
+              );
+
+              // Get population count or default to 0
+              const population = matchingDistrict?.POPULATIONCOUNT || 0;
+
+              // Determine fill color based on population
+              const fillColor = renderColor(population);
               console.log(typeof geo);
               return (
                 <Geography

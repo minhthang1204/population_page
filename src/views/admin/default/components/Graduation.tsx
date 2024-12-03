@@ -1,4 +1,4 @@
-import { Box, Card, Flex, FormControl, FormLabel, Select, Text } from '@chakra-ui/react';
+import { Box, Card, Flex, FormControl, FormLabel, Select, Text, Tooltip } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import apiEndpoints from '../../../../../utils/apiConfig';
@@ -37,6 +37,7 @@ const Graduation = () => {
     queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
 
+  console.log(users?.data)
   return (
     <Card
       w="100%"
@@ -72,7 +73,7 @@ const Graduation = () => {
         <Text textAlign="center" mb={6} fontSize="sm">
           Đơn vị: %
         </Text>
-        <Flex justifyContent="center" mt={6}>
+        {/* <Flex justifyContent="center" mt={6}>
           <Flex align="center" mx={2}>
             <Box width="20px" height="20px" bg={colors.chung} mr={2} />
             <Text fontSize="sm">Chung</Text>
@@ -85,13 +86,13 @@ const Graduation = () => {
             <Box width="20px" height="20px" bg={colors.nu} mr={2} />
             <Text fontSize="sm">Nữ</Text>
           </Flex>
-        </Flex>
+        </Flex> */}
         <Flex
           justifyContent="space-around"
           alignItems="flex-end"
           height="300px"
         >
-          {data.map((item, index) => (
+          {users?.data?.map((item: any, index: number) => (
             <Flex
               key={index}
               flexDir="column"
@@ -99,30 +100,19 @@ const Graduation = () => {
               justifyContent="space-around"
             >
               <Flex alignItems="flex-end" justifyContent="flex-end" marginRight={12}>
+              <Tooltip label={`${item.percentage}%`} aria-label="Percentage Tooltip" >
                 <Box
-                  bg={colors.chung}
-                  width="40px"
-                  height={`${item.chung * 10}px`}
-                  borderRadius="md"
-                />
-                {/* <Box
                   bg={colors.nam}
                   width="40px"
-                  height={`${item.nam * 10}px`}
+                  height={`${item.percentage * 4}px`}
                   borderRadius="md"
-                  mt={2}
+                  _hover={{ bg: "blue.600", cursor: "pointer" }} // Tăng hiệu ứng hover
                 />
-                <Box
-                  bg={colors.nu}
-                  width="40px"
-                  height={`${item.nu * 10}px`}
-                  borderRadius="md"
-                  mt={2}
-                /> */}
+                </Tooltip>
               </Flex>
               <Flex marginRight={12} alignSelf={'center'} justifySelf={'center'}>
                 <Text mt={2} fontSize="sm" textAlign="center">
-                  {item.label}
+                  {item.level}
                 </Text>
               </Flex>
             </Flex>

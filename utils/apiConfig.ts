@@ -6,7 +6,7 @@ const apiEndpoints = {
   posts: `${BASE_URL}/citizen/distribution`,
   comments: `${BASE_URL}/citizen/aging`,
   login: `${BASE_URL}/citizen/education-level-percentages`,
-  register: `${BASE_URL}/auth/register`,
+  register: `${BASE_URL}/citizen/district-population`,
 };
 
 export default apiEndpoints;
