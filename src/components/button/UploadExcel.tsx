@@ -28,8 +28,8 @@ export default function UploadFile() {
 
   return (
     <VStack spacing={4} align="center" p={5}>
-      <Button as="label" htmlFor="file-upload" colorScheme="teal" size="md" isLoading={mutation.isLoading}>
-        {mutation?.isLoading ? 'Uploading...' : 'Upload File'}
+      <Button as="label" htmlFor="file-upload" colorScheme="teal" size="md" isLoading={mutation.isPending}>
+        {mutation?.isPending ? 'Uploading...' : 'Upload File'}
       </Button>
       <Input
         id="file-upload"

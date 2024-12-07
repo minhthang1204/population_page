@@ -1,21 +1,18 @@
 import React, { useEffect, useRef } from "react";
-
-import {
-  Box,
-  Flex,
-  Heading,
-  HeadingProps,
-  HTMLChakraProps
-} from "@chakra-ui/react";
-import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
+import { Box, Flex, Heading, HeadingProps, HTMLChakraProps } from "@chakra-ui/react";
+import { AnimatePresence, motion, HTMLMotionProps } from "framer-motion";
 
 type Merge<P, T> = Omit<P, keyof T> & T;
+
+// Chakra UI + Motion component types
 type MotionBoxProps = Merge<HTMLChakraProps<"div">, HTMLMotionProps<"div">>;
+type MotionFlexProps = Merge<HTMLChakraProps<"div">, HTMLMotionProps<"div">>;
 type MotionHeaderProps = Merge<HeadingProps, HTMLMotionProps<"header">>;
 
-export const MotionFlex: React.FC<MotionBoxProps> = motion(Flex);
-export const MotionBox: React.FC<MotionBoxProps> = motion(Box);
-export const MotionHeader: React.FC<MotionHeaderProps> = motion(Heading);
+// Motion-wrapped Chakra UI components
+export const MotionBox = motion(Box);
+export const MotionFlex = motion(Flex);
+export const MotionHeader = motion(Heading);
 
 export interface MotionTextProps {
   text: string;
@@ -26,13 +23,13 @@ export interface MotionTextProps {
 export function MotionText({
   text,
   type = "slide",
-  direction = "forward"
+  direction = "forward",
 }: MotionTextProps) {
   const isFirst = useRef(true);
   const animate: { [key: string]: any } = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
-    exit: { opacity: 0 }
+    exit: { opacity: 0 },
   };
 
   if (type === "rotate") {
@@ -56,7 +53,7 @@ export function MotionText({
   return (
     <Box position="relative">
       <span style={{ visibility: "hidden" }}>{text}</span>
-      <AnimatePresence>
+      {/* <AnimatePresence >
         <MotionBox
           key={text}
           position="absolute"
@@ -68,7 +65,7 @@ export function MotionText({
         >
           {text}
         </MotionBox>
-      </AnimatePresence>
+      </AnimatePresence> */}
     </Box>
   );
 }

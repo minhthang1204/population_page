@@ -53,6 +53,7 @@ export default function SexatBirth() {
             borderWidth={'1px'}
             alignItems="center"
             justifyContent="center"
+            key={index}
           >
             {/* <Box p={5} maxW="600px" mx="auto" borderWidth="1px" borderRadius="lg"> */}
             {/* Tiêu đề */}

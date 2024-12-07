@@ -97,7 +97,7 @@ const JobExp = () => {
         >
           {/* {data.map((item, index) => ( */}
           <Flex
-            // key={index}
+            key={'male'}
             flexDir="column"
             alignItems="flex-end"
             justifyContent="space-around"

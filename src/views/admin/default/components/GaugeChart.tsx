@@ -33,9 +33,9 @@ const GaugeChart = () => {
         endAngle={0}
       >
         <RadialBar
-          minAngle={15}
+          // minAngle={15}
           background
-          clockWise
+          // clockWise
           dataKey="value"
         />
         <Legend
