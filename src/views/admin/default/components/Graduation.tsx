@@ -56,8 +56,7 @@ const Graduation = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Box>
-        <FormControl display="flex" alignItems="center">
+      <FormControl display="flex" alignItems="center" marginBottom={6} marginLeft={12}>
           <FormLabel htmlFor="district-filter" mb="0">
             Xã/Huyện:
           </FormLabel>
@@ -76,6 +75,8 @@ const Graduation = () => {
             ))}
           </Select>
         </FormControl>
+      <Box>
+        
         <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
           Tỷ lệ dân số có trình độ học vấn theo cấp bậc
         </Text>

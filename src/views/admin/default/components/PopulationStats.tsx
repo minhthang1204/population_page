@@ -75,7 +75,7 @@ const PopulationStats = () => {
         boxShadow="lg"
         textAlign="center"
       > */}
-      <Flex justifyContent={'space-between'}>
+      <Flex justifyContent={'space-between'} marginBottom={8}>
         <FormControl display="flex" alignItems="center" marginRight={10}>
           <FormLabel htmlFor="district-filter" mb="0">
             Xã/Huyện:

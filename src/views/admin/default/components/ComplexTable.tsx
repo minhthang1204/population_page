@@ -56,9 +56,9 @@ const ComplexTable = () => {
       borderColor={'#07a6f0'}
       borderWidth={'1px'}
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
     >
-      <FormControl display="flex" alignItems="center">
+      <FormControl display="flex" alignItems="center" marginBottom={12} marginLeft={12} marginTop={6}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>
