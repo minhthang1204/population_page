@@ -22,6 +22,7 @@ import AverageLifeExpectancy from 'views/admin/default/components/AverageLifeExp
 import MigrationAndUrbanization from 'views/admin/default/components/MigrationAndUrbanization';
 import MarriedBefore18 from 'views/admin/default/components/MarriedBefore18';
 import Graduation from 'views/admin/default/components/Graduation';
+import JobExp from 'views/admin/default/components/JobExp';
 // Assets
 
 export default function Default() {
@@ -51,24 +52,25 @@ export default function Default() {
         <PieCard />
         {/* </SimpleGrid> */}
       </SimpleGrid>
-      
+
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         {/* <UserActivity /> */}
         <SexatBirth />
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <InfantMortalityRate />
+        <Graduation />
         {/* <AverageLifeExpectancy /> */}
       </SimpleGrid>
       {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <MigrationAndUrbanization />
       </SimpleGrid> */}
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <Graduation />
         {/* <AverageLifeExpectancy /> */}
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <ComplexTable />
+        <JobExp />
         {/* <MarriedBefore18 /> */}
 
         {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">

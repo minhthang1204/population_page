@@ -1,5 +1,19 @@
-import { Box, Card, Flex, FormControl, FormLabel, Select, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Card,
+  Flex,
+  FormControl,
+  FormLabel,
+  Image,
+  Select,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import districtsData from '../../../../../public/caobang_districts.json';
+import axiosInstance from '../../../../../utils/axiosInstance';
+import apiEndpoints from '../../../../../utils/apiConfig';
 
 const ComplexTable = () => {
   const [genderFilter, setGenderFilter] = useState('all');
@@ -13,6 +27,29 @@ const ComplexTable = () => {
   // Màu sắc cho các nhóm
   const colors = { chung: 'blue.500', nam: 'green.500', nu: 'red.500' };
 
+  const [districtFilter, setDistrictFilter] = useState('all');
+
+  const fetchUsers = async (district: string) => {
+    const params = { hometown: district === 'all' ? '' : district };
+    const response = await axiosInstance.get(apiEndpoints.firstMarried, {
+      params,
+    });
+    return response.data;
+  };
+
+  const districts = districtsData.features.map((feature) => ({
+    OBJECTID: feature.properties.OBJECTID,
+    District: feature.properties.District,
+  }));
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['usersMarriages', districtFilter],
+    queryFn: ({ queryKey }) => fetchUsers(districtFilter),
+  });
+
   return (
     <Card
       w="100%"
@@ -21,76 +58,65 @@ const ComplexTable = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <FormControl display="flex" alignItems="center" mb="4">
-        <FormLabel htmlFor="gender-filter" mb="0">
-          Chọn:
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="district-filter" mb="0">
+          Xã/Huyện:
         </FormLabel>
         <Select
-          id="gender-filter"
-          value={genderFilter}
-          onChange={(e) => setGenderFilter(e.target.value)}
+          id="district-filter"
+          value={districtFilter}
+          onChange={(e) => setDistrictFilter(e.target.value)}
           ml="2"
           w="200px"
         >
           <option value="all">Tất cả</option>
-          <option value="male">Nam</option>
-          {/* map data các huyện */}
+          {districts.map((district) => (
+              <option key={district.OBJECTID} value={district.OBJECTID}>
+                {district.District}
+              </option>
+            ))}
         </Select>
       </FormControl>
-      <Box>
-        <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
-          Độ tuổi kết hôn trung bình lần đầu
+      <VStack spacing={3} textAlign="center" mb={4}>
+        <Text fontSize="lg" fontWeight="bold">
+          Tỉ lệ kết hôn trung bình
         </Text>
-        <Text textAlign="center" mb={6} fontSize="sm">
+        <Text fontSize="sm" color="gray.500">
           Đơn vị: tuổi
         </Text>
-        <Flex justifyContent="center" mt={6}>
-          <Flex align="center" mx={2}>
-            <Box width="20px" height="20px" bg={colors.nam} mr={2} />
-            <Text fontSize="sm">Nam</Text>
-          </Flex>
-          <Flex align="center" mx={2}>
-            <Box width="20px" height="20px" bg={colors.nu} mr={2} />
-            <Text fontSize="sm">Nữ</Text>
-          </Flex>
-        </Flex>
-        <Flex
-          justifyContent="space-around"
-          alignItems="flex-end"
-          height="300px"
-        >
-          {data.map((item, index) => (
-            <Flex
-              key={index}
-              flexDir="column"
-              alignItems="flex-end"
-              justifyContent="space-around"
-            >
-              <Flex alignItems="flex-end" justifyContent="flex-end" marginRight={12}>
-                <Box
-                  bg={colors.nam}
-                  width="40px"
-                  height={`${item.nam * 10}px`}
-                  borderRadius="md"
-                  mt={2}
-                />
-                <Box
-                  bg={colors.nu}
-                  width="40px"
-                  height={`${item.nu * 10}px`}
-                  borderRadius="md"
-                  mt={2}
-                />
-              </Flex>
-              <Flex marginRight={12} alignSelf={'center'} justifySelf={'center'}>
-                <Text mt={2} fontSize="sm" textAlign="center">
-                  {item.label}
-                </Text>
-              </Flex>
-            </Flex>
-          ))}
-        </Flex>
-      </Box>
+      </VStack>
+
+      {/* Hình ảnh em bé và chỉ số trung bình */}
+      <Flex justifyContent="center" alignItems="center" mb={6}>
+        <VStack spacing={1}>
+          <Image
+            src="/img/boy-icon.png" // Thay bằng link icon bé trai
+            alt="Bé trai"
+            boxSize="50px"
+          />
+          <Text color="teal.500" fontWeight="bold" fontSize="lg">
+          {users?.data.male}
+          </Text>
+        </VStack>
+        <VStack mx={4}>
+          <Text fontWeight="bold" fontSize="lg">
+            Tất cả
+          </Text>
+          <Text fontSize="2xl" color="blue.500" fontWeight="bold">
+            {users?.data.allAge}
+          </Text>
+        </VStack>
+        <VStack spacing={1}>
+          <Image
+            src="/img/girl-icon.png" // Thay bằng link icon bé gái
+            alt="Bé gái"
+            boxSize="50px"
+          />
+          <Text color="pink.500" fontWeight="bold" fontSize="lg">
+          {users?.data.female}
+          </Text>
+        </VStack>
+      </Flex>
     </Card>
   );
 };

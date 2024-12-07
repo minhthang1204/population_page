@@ -1,4 +1,13 @@
-import { Box, Card, Flex, FormControl, FormLabel, Select, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Card,
+  Flex,
+  FormControl,
+  FormLabel,
+  Select,
+  Text,
+  Tooltip,
+} from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import apiEndpoints from '../../../../../utils/apiConfig';
@@ -14,9 +23,10 @@ const Graduation = () => {
     { label: 'Nông thôn', chung: 16.7, nam: 18.9, nu: 14.4 },
   ];
 
-  const districts = Array.from(
-    new Set(districtsData.features.map((feature) => feature.properties.District))
-  );
+  const districts = districtsData.features.map((feature) => ({
+    OBJECTID: feature.properties.OBJECTID,
+    District: feature.properties.District,
+  }));
   // Màu sắc cho các nhóm
   const colors = { chung: 'blue.500', nam: 'green.500', nu: 'red.500' };
 
@@ -37,7 +47,7 @@ const Graduation = () => {
     queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
 
-  console.log(users?.data)
+  console.log(users?.data);
   return (
     <Card
       w="100%"
@@ -46,27 +56,26 @@ const Graduation = () => {
       alignItems="center"
       justifyContent="center"
     >
-
       <Box>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="district-filter" mb="0">
-          Xã/Huyện:
-        </FormLabel>
-        <Select
-          id="district-filter"
-          value={districtFilter}
-          onChange={(e) => setDistrictFilter(e.target.value)}
-          ml="2"
-          w="200px"
-        >
-          <option value="all">Tất cả</option>
-          {districts.map((district, index) => (
-            <option key={index} value={district}>
-              {district}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
+        <FormControl display="flex" alignItems="center">
+          <FormLabel htmlFor="district-filter" mb="0">
+            Xã/Huyện:
+          </FormLabel>
+          <Select
+            id="district-filter"
+            value={districtFilter}
+            onChange={(e) => setDistrictFilter(e.target.value)}
+            ml="2"
+            w="200px"
+          >
+            <option value="all">Tất cả</option>
+            {districts.map((district) => (
+              <option key={district.OBJECTID} value={district.OBJECTID}>
+                {district.District}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
         <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
           Tỷ lệ dân số có trình độ học vấn theo cấp bậc
         </Text>
@@ -99,18 +108,29 @@ const Graduation = () => {
               alignItems="flex-end"
               justifyContent="space-around"
             >
-              <Flex alignItems="flex-end" justifyContent="flex-end" marginRight={12}>
-              <Tooltip label={`${item.percentage}%`} aria-label="Percentage Tooltip" >
-                <Box
-                  bg={colors.nam}
-                  width="40px"
-                  height={`${item.percentage * 4}px`}
-                  borderRadius="md"
-                  _hover={{ bg: "blue.600", cursor: "pointer" }} // Tăng hiệu ứng hover
-                />
+              <Flex
+                alignItems="flex-end"
+                justifyContent="flex-end"
+                marginRight={12}
+              >
+                <Tooltip
+                  label={`${item.percentage}%`}
+                  aria-label="Percentage Tooltip"
+                >
+                  <Box
+                    bg={colors.nam}
+                    width="40px"
+                    height={`${item.percentage * 4}px`}
+                    borderRadius="md"
+                    _hover={{ bg: 'blue.600', cursor: 'pointer' }} // Tăng hiệu ứng hover
+                  />
                 </Tooltip>
               </Flex>
-              <Flex marginRight={12} alignSelf={'center'} justifySelf={'center'}>
+              <Flex
+                marginRight={12}
+                alignSelf={'center'}
+                justifySelf={'center'}
+              >
                 <Text mt={2} fontSize="sm" textAlign="center">
                   {item.level}
                 </Text>

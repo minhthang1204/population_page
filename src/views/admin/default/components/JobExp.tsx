@@ -14,18 +14,13 @@ import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import apiEndpoints from '../../../../../utils/apiConfig';
 
-const InfantMortalityRate = () => {
+const JobExp = () => {
   // Dữ liệu biểu đồ
-  const data = [
-    { label: 'Toàn quốc', chung: 14.0, nam: 15.8, nu: 12.0 },
-    { label: 'Thành thị', chung: 8.2, nam: 9.8, nu: 6.4 },
-    { label: 'Nông thôn', chung: 16.7, nam: 18.9, nu: 14.4 },
-  ];
   const [districtFilter, setDistrictFilter] = useState('all');
 
   const fetchUsers = async (district: string) => {
     const params = { hometown: district === 'all' ? '' : district };
-    const response = await axiosInstance.get(apiEndpoints.peopleDie, {
+    const response = await axiosInstance.get(apiEndpoints.jobExp, {
       params,
     });
     return response.data;
@@ -40,7 +35,7 @@ const InfantMortalityRate = () => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ['usersDeath', districtFilter],
+    queryKey: ['usersJob', districtFilter],
     queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
 
@@ -76,10 +71,10 @@ const InfantMortalityRate = () => {
       </FormControl>
       <Box>
         <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
-          Tỷ suất chết trẻ em dưới 1 tuổi (IMR)
+          Tỷ lệ nguời trên 18 đã đi làm
         </Text>
         <Text textAlign="center" mb={6} fontSize="sm">
-          Đơn vị: Trẻ em dưới 1 tuổi tử vong trên 1000 trẻ sinh sống
+          Đơn vị: %
         </Text>
         <Flex justifyContent="center" mt={6}>
           <Flex align="center" mx={2}>
@@ -161,4 +156,4 @@ const InfantMortalityRate = () => {
   );
 };
 
-export default InfantMortalityRate;
+export default JobExp;

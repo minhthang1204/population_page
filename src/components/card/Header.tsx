@@ -14,6 +14,7 @@ import Image from 'next/image';
 // Custom components
 import Card from 'components/card/Card';
 import { IoIosSearch } from 'react-icons/io';
+import UploadExcel from 'components/button/UploadExcel';
 
 export default function Default(props: {}) {
   // const { startContent, endContent, name, growth, value } = props;
@@ -58,10 +59,11 @@ export default function Default(props: {}) {
           ml={'auto'}
 		  mr={'10px'}
         >
-          <Icon fontSize="24px" color="tomato">
+          {/* <Icon fontSize="24px" color="tomato">
             <IoIosSearch />
           </Icon>
-          <Text>Tìm kiếm</Text>
+          <Text>Tìm kiếm</Text> */}
+          <UploadExcel />
           <Box
             width={['20px', '30px', '30px', '30px']}
             height={['20px', '30px', '30px', '30px']}

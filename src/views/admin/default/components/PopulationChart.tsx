@@ -27,9 +27,10 @@ const PopulationPyramid = () => {
   const [districtsParams, setDistrictsParams] = useState([]);
   const [districtFilter, setDistrictFilter] = useState('all');
 
-  const districts = Array.from(
-    new Set(districtsData.features.map((feature) => feature.properties.District))
-  );
+  const districts = districtsData.features.map((feature) => ({
+    OBJECTID: feature.properties.OBJECTID,
+    District: feature.properties.District,
+  }));
   const {
     data: users,
     error,
@@ -62,11 +63,11 @@ const PopulationPyramid = () => {
           w="200px"
         >
           <option value="all">Tất cả</option>
-          {districts.map((district, index) => (
-            <option key={index} value={district}>
-              {district}
-            </option>
-          ))}
+          {districts.map((district) => (
+              <option key={district.OBJECTID} value={district.OBJECTID}>
+                {district.District}
+              </option>
+            ))}
         </Select>
       </FormControl>
 

@@ -103,7 +103,7 @@ const MapChart = () => {
             return geographies.map((geo) => {
               const provinceCode = geo.properties.OBJECTID; 
               // Find the matching population data using DISTRICT_ID
-              const matchingDistrict = populationData.find(
+              const matchingDistrict = populationData?.find(
                 (data: any) => data.DISTRICT_ID === provinceCode,
               );
 
