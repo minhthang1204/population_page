@@ -7,6 +7,7 @@ import {
   Select,
   Text,
   Tooltip,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../../../utils/axiosInstance';
@@ -46,6 +47,13 @@ const Graduation = () => {
     queryKey: ['usersStudy', districtFilter],
     queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
+  const fontSize = useBreakpointValue({
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+    lg: 'xl',
+    xl: '2xl',
+  });
 
   console.log(users?.data);
   return (
@@ -54,9 +62,32 @@ const Graduation = () => {
       borderColor={'#07a6f0'}
       borderWidth={'1px'}
       alignItems="center"
-      justifyContent="center"
+      // justifyContent="center"
+      paddingLeft={6}
+      borderRadius={20}
     >
-      <FormControl display="flex" alignItems="center" marginBottom={6} marginLeft={12}>
+      <Flex
+        justify="space-between"
+        ps="0px"
+        pe="20px"
+        pt="5px"
+        w="100%"
+        marginTop={6}
+      >
+        <Flex
+          align="center"
+          w="100%"
+          justify={{ base: 'center', xl: 'center' }}
+          borderBottom={'1px'}
+          borderBottomColor={'#07a6f0'}
+          paddingBottom={2}
+        >
+          <Text fontSize={fontSize} color={'#07a6f0'}>
+            TỶ LỆ DÂN SỐ CÓ TRÌNH ĐỘ HỌC VẤN THEO CẤP BẬC
+          </Text>
+        </Flex>
+      </Flex>
+      <FormControl display="flex" alignItems="center" marginBottom={6} marginLeft={12} marginTop={6}>
           <FormLabel htmlFor="district-filter" mb="0">
             Xã/Huyện:
           </FormLabel>
@@ -77,9 +108,9 @@ const Graduation = () => {
         </FormControl>
       <Box>
         
-        <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
+        {/* <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
           Tỷ lệ dân số có trình độ học vấn theo cấp bậc
-        </Text>
+        </Text> */}
         <Text textAlign="center" mb={6} fontSize="sm">
           Đơn vị: %
         </Text>

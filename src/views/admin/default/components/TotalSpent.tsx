@@ -63,29 +63,26 @@ export default function TotalSpent(props: { [x: string]: any }) {
 
   return (
     <Card
-      justifyContent="center"
+      // justifyContent="center"
       alignItems="center"
       flexDirection="column"
       w="100%"
-      mb="0px"
       borderColor={'#07a6f0'}
       borderWidth={'1px'}
-      {...rest}
+      
     >
-      <Flex justify="space-between" ps="0px" pe="20px" pt="5px" w="100%">
         <Flex
           align="center"
           w="100%"
           justify={{ base: 'center', xl: 'center' }}
           borderBottom={'1px'}
           borderBottomColor={'#07a6f0'}
+          marginTop={4}
         >
           <Text fontSize={fontSize} color={'#07a6f0'}>BẢN ĐỒ DÂN SỐ TỈNH CAO BẰNG NĂM 2019</Text>
         </Flex>
-      </Flex>
       <Flex w="100%" flexDirection={{ base: 'row', lg: 'row' }}>
         <Box minH="260px" minW="75%" mt="auto">
-          {/* <LineChart chartData={lineChartDataTotalSpent} chartOptions={lineChartOptionsTotalSpent} /> */}
           <MapChart />
         </Box>
         <Box justifySelf={'center'} alignSelf={'center'}>

@@ -1,4 +1,13 @@
-import { Box, Flex, Text, Image, VStack, HStack, Card } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Text,
+  Image,
+  VStack,
+  HStack,
+  Card,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import apiEndpoints from '../../../../../utils/apiConfig';
@@ -27,6 +36,13 @@ export default function SexatBirth() {
     verticalSwiping: false, // Tắt vuốt dọc
     swipeToSlide: true, // Vuốt để trượt
   };
+  const fontSize = useBreakpointValue({
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+    lg: 'xl',
+    xl: '2xl',
+  });
   return (
     <Box
       overflowX="scroll" // Bật thanh cuộn ngang
@@ -52,15 +68,38 @@ export default function SexatBirth() {
             borderColor={'#07a6f0'}
             borderWidth={'1px'}
             alignItems="center"
-            justifyContent="center"
+            // justifyContent="center"
             key={index}
+            paddingLeft={6}
+            borderRadius={20}
           >
+            <Flex
+              justify="space-between"
+              ps="0px"
+              pe="20px"
+              pt="5px"
+              w="100%"
+              paddingTop={6}
+            >
+              <Flex
+                align="center"
+                w="100%"
+                justify={{ base: 'center', xl: 'center' }}
+                borderBottom={'1px'}
+                borderBottomColor={'#07a6f0'}
+                paddingBottom={2}
+              >
+                <Text fontSize={fontSize} color={'#07a6f0'}>
+                  TỈ SỐ GIỚI TÍNH KHI SINH
+                </Text>
+              </Flex>
+            </Flex>
             {/* <Box p={5} maxW="600px" mx="auto" borderWidth="1px" borderRadius="lg"> */}
             {/* Tiêu đề */}
             <VStack spacing={3} textAlign="center" mb={4}>
-              <Text fontSize="lg" fontWeight="bold">
+              {/* <Text fontSize="lg" fontWeight="bold">
                 Tỷ số giới tính khi sinh
-              </Text>
+              </Text> */}
               <Text fontSize="sm" color="gray.500">
                 Đơn vị: Số bé trai/100 bé gái
               </Text>
@@ -80,7 +119,7 @@ export default function SexatBirth() {
               </VStack>
               <VStack mx={4}>
                 <Text fontWeight="bold" fontSize="lg">
-                  {use?.location === "ALL" ? "Toàn tình" : use.location}
+                  {use?.location === 'ALL' ? 'Toàn tình' : use.location}
                 </Text>
                 <Text fontSize="2xl" color="blue.500" fontWeight="bold">
                   {use?.percentage}

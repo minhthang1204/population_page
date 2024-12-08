@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import { Circle, Flex, Stack, Text, VStack } from '@chakra-ui/layout';
-import { Box, Card } from '@chakra-ui/react';
+import { Box, Card, useBreakpointValue } from '@chakra-ui/react';
 import { Group } from '@visx/group';
 import { Legend } from '@visx/legend';
 import { Pie } from '@visx/shape';
@@ -45,19 +45,19 @@ export default function Conversion(props: { [x: string]: any }) {
     queryFn: ({ queryKey }) => fetchUsers(),
   });
 
-  const {
-    data: age,
-  } = useQuery({
+  const { data: age } = useQuery({
     queryKey: ['age'],
     queryFn: ({ queryKey }) => fetchAge(),
   });
   console.log(users);
 
-  const sample = users && Object.keys(users.data).map((key) => ({
-    name: displayNames[key] || key.toUpperCase(), // Nếu không có tên hiển thị, dùng key gốc
-    value: users.data[key],
-    color: colorMapping[key],
-  }));
+  const sample =
+    users &&
+    Object.keys(users.data).map((key) => ({
+      name: displayNames[key] || key.toUpperCase(), // Nếu không có tên hiển thị, dùng key gốc
+      value: users.data[key],
+      color: colorMapping[key],
+    }));
   const {
     colorScale,
     containerRef,
@@ -92,14 +92,45 @@ export default function Conversion(props: { [x: string]: any }) {
     animate();
   }, [archFinish, boxController]);
 
+  const fontSize = useBreakpointValue({
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+    lg: 'xl',
+    xl: '2xl',
+  });
+
   return (
     <Card
       w="100%"
       borderColor={'#07a6f0'}
       borderWidth={'1px'}
       alignItems="center"
-      justifyContent="center"
+      // justifyContent="center"
+      paddingLeft={6}
+      borderRadius={20}
     >
+      <Flex
+        justify="space-between"
+        ps="0px"
+        pe="20px"
+        pt="5px"
+        w="100%"
+        marginTop={6}
+      >
+        <Flex
+          align="center"
+          w="100%"
+          justify={{ base: 'center', xl: 'center' }}
+          borderBottom={'1px'}
+          borderBottomColor={'#07a6f0'}
+          paddingBottom={2}
+        >
+          <Text fontSize={fontSize} color={'#07a6f0'}>
+            TỈ TRỌNG DÂN SỐ CHIA THEO NHÓM ĐỘ TUỔI(3 NHÓM)
+          </Text>
+        </Flex>
+      </Flex>
       <Flex align="center" marginTop={12}>
         <Box pos="relative" ref={containerRef}>
           <svg width={size} height={size}>
@@ -170,10 +201,17 @@ export default function Conversion(props: { [x: string]: any }) {
           />
         </MotionBox>
       </Flex>
-      <Flex marginTop={12} marginLeft={12} borderTopWidth={1} borderTopColor={'#07a6f0'} alignSelf={'flex-start'}>
-        <VStack marginTop={8}>
-        <Text fontSize="lg" fontWeight="bold">
-            Chỉ số già hóa
+      <Flex marginTop={12} marginLeft={12} w={'100%'}>
+        <VStack
+          marginTop={8}
+          borderTopWidth={1}
+          borderTopColor={'#07a6f0'}
+          paddingTop={2}
+          alignSelf={'center'}
+          w={'92%'}
+        >
+          <Text fontSize="lg" fontWeight="bold">
+            CHỈ SỐ GIÀ HÓA
           </Text>
           <Circle size="50px" bg="blue.100">
             <Text fontSize="2xl" color="blue.600">
@@ -181,7 +219,8 @@ export default function Conversion(props: { [x: string]: any }) {
             </Text>
           </Circle>
           <Text fontSize="lg" fontWeight="bold">
-            {age?.data}{'%'}
+            {age?.data}
+            {'%'}
           </Text>
         </VStack>
       </Flex>

@@ -51,7 +51,7 @@ const PopulationPyramid = () => {
       {/* Bộ lọc */}
 
 
-      <FormControl display="flex" alignItems="center">
+      <FormControl display="flex" alignItems="center" marginTop={2} marginBottom={2}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>

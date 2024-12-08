@@ -7,6 +7,7 @@ import {
   Image,
   Select,
   Text,
+  useBreakpointValue,
   VStack,
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
@@ -50,6 +51,14 @@ const ComplexTable = () => {
     queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
 
+  const fontSize = useBreakpointValue({
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+    lg: 'xl',
+    xl: '2xl',
+  });
+
   return (
     <Card
       w="100%"
@@ -57,7 +66,30 @@ const ComplexTable = () => {
       borderWidth={'1px'}
       alignItems="center"
       justifyContent="flex-start"
+      paddingLeft={6}
+      borderRadius={20}
     >
+      <Flex
+        justify="space-between"
+        ps="0px"
+        pe="20px"
+        pt="5px"
+        w="100%"
+        marginTop={6}
+      >
+        <Flex
+          align="center"
+          w="100%"
+          justify={{ base: 'center', xl: 'center' }}
+          borderBottom={'1px'}
+          borderBottomColor={'#07a6f0'}
+          paddingBottom={2}
+        >
+          <Text fontSize={fontSize} color={'#07a6f0'}>
+            TỶ LỆ KẾT HÔN TRUNG BÌNH
+          </Text>
+        </Flex>
+      </Flex>
       <FormControl display="flex" alignItems="center" marginBottom={12} marginLeft={12} marginTop={6}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
@@ -78,9 +110,9 @@ const ComplexTable = () => {
         </Select>
       </FormControl>
       <VStack spacing={3} textAlign="center" mb={4}>
-        <Text fontSize="lg" fontWeight="bold">
+        {/* <Text fontSize="lg" fontWeight="bold">
           Tỉ lệ kết hôn trung bình
-        </Text>
+        </Text> */}
         <Text fontSize="sm" color="gray.500">
           Đơn vị: tuổi
         </Text>

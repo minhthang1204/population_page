@@ -34,17 +34,18 @@ export default function WeeklyRevenue(props: { [x: string]: any }) {
   });
 
   return (
-    <Card w="100%" borderColor={'#07a6f0'} borderWidth={'1px'} {...rest}>
-      <Flex justify="space-between" ps="0px" pe="20px" pt="5px" w="100%">
+    <Card w="100%" borderColor={'#07a6f0'} borderWidth={'1px'} {...rest }>
+      <Flex justify="space-between" ps="0px" pe="20px" pt="5px" w="100%" >
         <Flex
           align="center"
           w="100%"
           justify={{ base: 'center', xl: 'center' }}
           borderBottom={'1px'}
           borderBottomColor={'#07a6f0'}
+          paddingBottom={2}
         >
           <Text fontSize={fontSize} color={'#07a6f0'}>
-            Dân số: 
+            THÁP DÂN SỐ
           </Text>
         </Flex>
       </Flex>

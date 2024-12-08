@@ -9,6 +9,7 @@ import {
   FormLabel,
   Select,
   Flex,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import districtsData from '../../../../../public/caobang_districts.json';
@@ -57,26 +58,40 @@ const PopulationStats = () => {
     queryKey: ['usersGenderDistrict', districtFilter],
     queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
+
+  const fontSize = useBreakpointValue({
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+    lg: 'xl',
+    xl: '2xl',
+  });
   return (
     <Card
       w="100%"
       borderColor={'#07a6f0'}
       borderWidth={'1px'}
       alignItems="flex-start"
-      justifyContent="center"
+      // justifyContent="center"
       paddingLeft={6}
+      borderRadius={20}
     >
-      {/* <Box
-        maxW="600px"
-        mx="auto"
-        p="6"
-        borderWidth="1px"
-        borderRadius="md"
-        boxShadow="lg"
-        textAlign="center"
-      > */}
+      <Flex justify="space-between" ps="0px" pe="20px" pt="5px" w="100%" marginTop={6}>
+        <Flex
+          align="center"
+          w="100%"
+          justify={{ base: 'center', xl: 'center' }}
+          borderBottom={'1px'}
+          borderBottomColor={'#07a6f0'}
+          paddingBottom={2}
+        >
+          <Text fontSize={fontSize} color={'#07a6f0'}>
+            TỔNG DÂN SỐ CHIA THEO GIỚI TÍNH
+          </Text>
+        </Flex>
+      </Flex>
       <Flex justifyContent={'space-between'} marginBottom={8}>
-        <FormControl display="flex" alignItems="center" marginRight={10}>
+        <FormControl display="flex" alignItems="center" marginRight={10} marginTop={2} marginBottom={2}>
           <FormLabel htmlFor="district-filter" mb="0">
             Xã/Huyện:
           </FormLabel>
@@ -114,14 +129,14 @@ const PopulationStats = () => {
         </FormControl> */}
 
       {/* Tiêu đề */}
-      <Flex>
+      <Flex justifyContent={'space-around'} alignItems={'center'} width={'100%'} marginBottom={2}>
         <Flex
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
         >
           <Text fontSize="xl" fontWeight="bold" mb="2">
-            Tổng dân số chia theo giới tính theo huyện
+            HUYỆN
           </Text>
           <Text fontSize="sm" color="gray.500">
             Đơn vị: Người
@@ -173,7 +188,7 @@ const PopulationStats = () => {
         </Flex>
         <Flex marginLeft={12} flexDirection={'column'} alignItems={'center'}>
           <Text fontSize="xl" fontWeight="bold" mb="2">
-            Tổng dân số chia theo giới tính toàn tỉnh
+           TỈNH
           </Text>
           <Text fontSize="sm" color="gray.500">
             Đơn vị: Người

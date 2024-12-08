@@ -7,6 +7,7 @@ import {
   Select,
   Text,
   Tooltip,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import districtsData from '../../../../../public/caobang_districts.json';
@@ -46,6 +47,13 @@ const InfantMortalityRate = () => {
 
   // Màu sắc cho các nhóm
   const colors = { chung: 'blue.500', nam: 'green.500', nu: 'red.500' };
+  const fontSize = useBreakpointValue({
+    base: 'sm',
+    sm: 'md',
+    md: 'lg',
+    lg: 'xl',
+    xl: '2xl',
+  });
 
   return (
     <Card
@@ -54,8 +62,37 @@ const InfantMortalityRate = () => {
       borderWidth={'1px'}
       alignItems="center"
       justifyContent="flex-start"
+      paddingLeft={6}
+      borderRadius={20}
     >
-      <FormControl display="flex" alignItems="center" marginBottom={6} marginTop={6} marginLeft={16}>
+      <Flex
+        justify="space-between"
+        ps="0px"
+        pe="20px"
+        pt="5px"
+        w="100%"
+        marginTop={6}
+      >
+        <Flex
+          align="center"
+          w="100%"
+          justify={{ base: 'center', xl: 'center' }}
+          borderBottom={'1px'}
+          borderBottomColor={'#07a6f0'}
+          paddingBottom={2}
+        >
+          <Text fontSize={fontSize} color={'#07a6f0'}>
+            TỶ SUẤT CHẾT TRẺ EM DƯỚI 1 TUỔI (IMR)
+          </Text>
+        </Flex>
+      </Flex>
+      <FormControl
+        display="flex"
+        alignItems="center"
+        marginBottom={6}
+        marginTop={6}
+        marginLeft={16}
+      >
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>
@@ -75,9 +112,9 @@ const InfantMortalityRate = () => {
         </Select>
       </FormControl>
       <Box>
-        <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
+        {/* <Text fontSize="lg" fontWeight="bold" textAlign="center" mb={4}>
           Tỷ suất chết trẻ em dưới 1 tuổi (IMR)
-        </Text>
+        </Text> */}
         <Text textAlign="center" mb={6} fontSize="sm">
           Đơn vị: Trẻ em dưới 1 tuổi tử vong trên 1000 trẻ sinh sống
         </Text>
