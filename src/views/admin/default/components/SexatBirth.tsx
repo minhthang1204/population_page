@@ -45,7 +45,7 @@ export default function SexatBirth() {
         },
       }}
     >
-      <HStack spacing={4} w={'500%'}>
+      <HStack spacing={4} w={'280%'}>
         {users?.data?.map((use: any, index: number) => (
           <Card
             w="100%"

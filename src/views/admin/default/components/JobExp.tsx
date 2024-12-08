@@ -50,7 +50,7 @@ const JobExp = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <FormControl display="flex" alignItems="center">
+      <FormControl display="flex" alignItems="center" marginLeft={12} marginTop={6} marginBottom={6}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>

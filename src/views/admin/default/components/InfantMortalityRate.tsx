@@ -53,9 +53,9 @@ const InfantMortalityRate = () => {
       borderColor={'#07a6f0'}
       borderWidth={'1px'}
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
     >
-      <FormControl display="flex" alignItems="center">
+      <FormControl display="flex" alignItems="center" marginBottom={6} marginTop={6} marginLeft={16}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>
