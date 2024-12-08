@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Input, VStack, Text } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { uploadFile, UploadResponse } from '../../../utils/uploadFile';
-import { useToast } from "@chakra-ui/react";
+// import { useToast } from "@chakra-ui/react";
 
 export default function UploadFile() {
   const [fileName, setFileName] = useState<string>('');
@@ -10,25 +10,25 @@ export default function UploadFile() {
   const mutation = useMutation<UploadResponse, Error, File>({
     mutationFn: uploadFile,
     onSuccess: (data) => {
-      const toast = useToast();
-      toast({
-        title: "Upload thành công!",
-        description: "File đã được upload thành công.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
+      // const toast = useToast();
+      // toast({
+      //   title: "Upload thành công!",
+      //   description: "File đã được upload thành công.",
+      //   status: "success",
+      //   duration: 5000,
+      //   isClosable: true,
+      // });
       console.log("Upload thành công:", data);
     },
     onError: (error) => {
-      const toast = useToast();
-      toast({
-        title: "Upload thất bại!",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
+      // const toast = useToast();
+      // toast({
+      //   title: "Upload thất bại!",
+      //   description: error.message,
+      //   status: "error",
+      //   duration: 5000,
+      //   isClosable: true,
+      // });
       console.error("Lỗi khi upload file:", error.message);
     },
   });
