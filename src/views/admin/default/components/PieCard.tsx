@@ -100,6 +100,10 @@ export default function Conversion(props: { [x: string]: any }) {
     xl: '2xl',
   });
 
+  const formattedValue = (tooltipData?.value && !isNaN(tooltipData.value))
+  ? (tooltipData?.value).toFixed(2)
+  : tooltipData?.value;
+
   return (
     <Card
       w="100%"
@@ -179,7 +183,7 @@ export default function Conversion(props: { [x: string]: any }) {
           } */}
                   </Text>
                   <Text whiteSpace="nowrap">
-                    <strong>Value:</strong> {tooltipData?.value}
+                    <strong>Value:</strong> {formattedValue}
                     {'%'}
                   </Text>
                 </Stack>

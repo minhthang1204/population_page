@@ -50,6 +50,16 @@ const JobExp = () => {
     xl: '2xl',
   });
 
+  const renderColumn = (data: number) => {
+    if (data > 80) return data * 3.5
+    if (data > 60) return data * 4.5
+    if (data > 40) return data * 6
+    if (data > 20) return data * 9
+    if (data > 10) return data * 13
+    if (data > 2) return data * 16
+    return data
+  }
+
   return (
     <Card
       w="100%"
@@ -81,7 +91,7 @@ const JobExp = () => {
           </Text>
         </Flex>
       </Flex>
-      <FormControl display="flex" alignItems="center" marginLeft={12} marginTop={6} marginBottom={6}>
+      <FormControl display="flex" alignItems="center"  marginTop={6} marginBottom={6}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>
@@ -145,7 +155,7 @@ const JobExp = () => {
                 <Box
                   bg={colors.chung}
                   width="40px"
-                  height={`${users?.data.all}px`}
+                  height={`${renderColumn(users?.data.all)}px`}
                   borderRadius="md"
                 />
               </Tooltip>
@@ -156,7 +166,7 @@ const JobExp = () => {
                 <Box
                   bg={colors.nam}
                   width="40px"
-                  height={`${users?.data.male}px`}
+                  height={`${renderColumn(users?.data.male)}px`}
                   borderRadius="md"
                   mt={2}
                 />
@@ -168,13 +178,13 @@ const JobExp = () => {
                 <Box
                   bg={colors.nu}
                   width="40px"
-                  height={`${users?.data.female}px`}
+                  height={`${renderColumn(users?.data.female)}px`}
                   borderRadius="md"
                   mt={2}
                 />
               </Tooltip>
             </Flex>
-            <Flex marginRight={12} alignSelf={'center'} justifySelf={'center'}>
+            <Flex marginRight={12} marginBottom={8} alignSelf={'center'} justifySelf={'center'}>
               <Text mt={2} fontSize="sm" textAlign="center">
                 {/* {users?.data?.} */}
               </Text>

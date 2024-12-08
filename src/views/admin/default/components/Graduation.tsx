@@ -87,7 +87,7 @@ const Graduation = () => {
           </Text>
         </Flex>
       </Flex>
-      <FormControl display="flex" alignItems="center" marginBottom={6} marginLeft={12} marginTop={6}>
+      <FormControl display="flex" alignItems="center" marginBottom={6}  marginTop={6}>
           <FormLabel htmlFor="district-filter" mb="0">
             Xã/Huyện:
           </FormLabel>

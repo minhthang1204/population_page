@@ -91,7 +91,7 @@ const InfantMortalityRate = () => {
         alignItems="center"
         marginBottom={6}
         marginTop={6}
-        marginLeft={16}
+        
       >
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
@@ -185,9 +185,9 @@ const InfantMortalityRate = () => {
                 />
               </Tooltip>
             </Flex>
-            <Flex marginRight={12} alignSelf={'center'} justifySelf={'center'}>
+            <Flex marginRight={12} marginBottom={8} alignSelf={'center'} justifySelf={'center'}>
               <Text mt={2} fontSize="sm" textAlign="center">
-                {/* {users?.data?.} */}
+                {/* {'ádasdasd'} */}
               </Text>
             </Flex>
           </Flex>

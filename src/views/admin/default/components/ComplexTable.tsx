@@ -90,7 +90,7 @@ const ComplexTable = () => {
           </Text>
         </Flex>
       </Flex>
-      <FormControl display="flex" alignItems="center" marginBottom={12} marginLeft={12} marginTop={6}>
+      <FormControl display="flex" alignItems="center" marginBottom={12}  marginTop={6}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>
@@ -119,12 +119,12 @@ const ComplexTable = () => {
       </VStack>
 
       {/* Hình ảnh em bé và chỉ số trung bình */}
-      <Flex justifyContent="center" alignItems="center" mb={6}>
+      <Flex justifyContent='space-around' alignItems="center" mb={6}>
         <VStack spacing={1}>
           <Image
             src="/img/boy-icon.png" // Thay bằng link icon bé trai
             alt="Bé trai"
-            boxSize="50px"
+            boxSize="100px"
           />
           <Text color="teal.500" fontWeight="bold" fontSize="lg">
           {users?.data.male}
@@ -142,7 +142,7 @@ const ComplexTable = () => {
           <Image
             src="/img/girl-icon.png" // Thay bằng link icon bé gái
             alt="Bé gái"
-            boxSize="50px"
+            boxSize="100px"
           />
           <Text color="pink.500" fontWeight="bold" fontSize="lg">
           {users?.data.female}
