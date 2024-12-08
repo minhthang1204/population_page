@@ -13,6 +13,7 @@ const nextConfig = {
     // Make ENV
     unoptimized: true,
   },
+  distDir: 'build',
 };
 
 // module.exports = withTM(nextConfig);

@@ -1,34 +1,30 @@
-# Sử dụng Node.js làm base image
-FROM node:18 AS builder
+# Base on official Node.js Alpine image
+FROM node:alpine
 
-# Thiết lập thư mục làm việc
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/app
 
-# Copy package.json và package-lock.json
-COPY package.json package-lock.json ./
+# Enable Corepack and install PM2 globally
+RUN corepack enable && corepack prepare yarn@stable --activate
+RUN npm install --global pm2
 
-# Cài đặt các dependencies
-RUN npm install
+# Copy package.json and yarn.lock
+COPY package.json yarn.lock ./
 
-# Copy toàn bộ mã nguồn
+# Install dependencies
+RUN yarn install --frozen-lockfile
+
+# Copy all files
 COPY . .
 
-# Build ứng dụng Next.js
-RUN npm run build
+# Build the Next.js app
+RUN yarn build
 
-# Production image
-FROM node:18-alpine
+# Expose the port Next.js runs on
+EXPOSE 3000
 
-# Thiết lập thư mục làm việc
-WORKDIR /app
+# Run container as non-root (unprivileged) user
+USER node
 
-# Copy từ builder
-COPY --from=builder /app/package.json /app/package-lock.json /app/
-COPY --from=builder /app/.next /app/.next
-COPY --from=builder /app/public /app/public
-
-# Cài đặt các dependencies cho production
-RUN npm install --production
-
-# Khởi chạy ứng dụng
-CMD ["npm", "start"]
+# Use PM2 to start the Next.js app
+CMD ["pm2-runtime", "start", "/usr/local/bin/yarn", "--", "start"]
