@@ -160,7 +160,7 @@ const MapChart = () => {
                       pressed: { fill: '#ff7043', outline: 'none' },
                     }}
                   />
-                  {/* <text
+                  <text
                     x={x}
                     y={y}
                     // textAnchor="middle"
@@ -169,12 +169,12 @@ const MapChart = () => {
                       fontSize: '12px',
                       fontWeight: 'normals',
                       pointerEvents: 'none',
-                      zIndex: 100,
+                      zIndex: 10000,
                       position: 'absolute',
                     }}
                   >
                     {districtName}
-                  </text> */}
+                  </text>
                 </g>
               );
             });
@@ -182,38 +182,7 @@ const MapChart = () => {
         </Geographies>
       </ComposableMap>
       {/* Overlay tên các tỉnh */}
-      {populationData?.map((district: any) => {
-        console.log(district);
-        const central = [district.coordinates_.x, district.coordinates_.y];
-        const [longitude, latitude] = central || [
-          106.25975044500007, 22.579445053000086,
-        ];
-        // const [x, y] = central || [
-        //   106.25975044500007, 22.579445053000086,
-        // ];
-        const [x, y] = projection([longitude - 0.18, latitude - 0.06]) || [
-          0, 0,
-        ];
-        console.log('object', x, y);
-        return (
-          <div
-            key={district.districtId}
-            style={{
-              position: 'absolute',
-              top: y,
-              left: x,
-              transform: 'translate(-50%, -50%)',
-              background: 'rgba(255, 255, 255, 0.8)',
-              padding: '2px 5px',
-              borderRadius: '3px',
-              fontSize: '12px',
-              fontWeight: 'bold',
-            }}
-          >
-            {district.districtName}
-          </div>
-        );
-      })}
+      
     </div>
   );
 };
