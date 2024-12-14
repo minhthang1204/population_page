@@ -51,12 +51,12 @@ const JobExp = () => {
   });
 
   const renderColumn = (data: number) => {
-    if (data > 80) return data * 3.5
-    if (data > 60) return data * 4.5
-    if (data > 40) return data * 6
-    if (data > 20) return data * 9
-    if (data > 10) return data * 13
-    if (data > 2) return data * 16
+    // if (data > 80) return data * 2.2
+    // if (data > 60) return data * 4.5
+    // if (data > 40) return data * 4.5
+    // if (data > 20) return data * 9
+    // if (data > 10) return data * 13
+    // if (data > 2) return data * 16
     return data
   }
 

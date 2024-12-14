@@ -165,12 +165,14 @@ const MapChart = () => {
                     y={y}
                     // textAnchor="middle"
                     style={{
-                      fill: '#fff',
-                      fontSize: '12px',
+                      fill: '#000',
+                      fontSize: '8px',
                       fontWeight: 'normals',
                       pointerEvents: 'none',
                       zIndex: 10000,
                       position: 'absolute',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)'
                     }}
                   >
                     {districtName}
