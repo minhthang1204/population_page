@@ -81,13 +81,13 @@ export default function TotalSpent(props: { [x: string]: any }) {
         >
           <Text fontSize={fontSize} color={'#07a6f0'}>BẢN ĐỒ DÂN SỐ TỈNH CAO BẰNG NĂM 2019</Text>
         </Flex>
-      <Flex w="100%" flexDirection={{ base: 'row', lg: 'row' }}>
+      <Flex w="100%" flexDirection={{ base: 'column', lg: 'column' }}>
         <Box minH="260px" minW="75%" mt="auto">
           <MapChart />
         </Box>
-        <Box justifySelf={'center'} alignSelf={'center'}>
+        {/* <Box justifySelf={'center'} alignSelf={'center'}>
           <GradientBar />
-        </Box>
+        </Box> */}
       </Flex>
     </Card>
   );

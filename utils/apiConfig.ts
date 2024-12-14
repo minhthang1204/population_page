@@ -6,7 +6,7 @@ const apiEndpoints = {
   posts: `${BASE_URL}/citizen/distribution`,
   comments: `${BASE_URL}/citizen/aging`,
   login: `${BASE_URL}/citizen/education-level-percentages`,
-  register: `${BASE_URL}/citizen/district-population`,
+  register: `${BASE_URL}/districts`,
   getByGender: `${BASE_URL}/citizen/count`,
   genderAtBirth: `${BASE_URL}/births`,
   uploadFile: `${BASE_URL}/files/upload`,
