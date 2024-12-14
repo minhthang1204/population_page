@@ -42,12 +42,17 @@ export default function Default() {
         <Header />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+      <SimpleGrid columns={{ base: 1, md: 10, xl: 10 }} gap="20px" mb="20px">
+        <Box gridColumn={{ base: 'span 1', md: 'span 7' }}>
         <TotalSpent />
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        </Box>
+        <Box gridColumn={{ base: 'span 1', md: 'span 3' }}>
         <WeeklyRevenue />
+        </Box>
       </SimpleGrid>
+      {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        
+      </SimpleGrid> */}
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <PopulationStats />
         {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px"> */}
