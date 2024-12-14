@@ -156,7 +156,7 @@ const InfantMortalityRate = () => {
                 <Box
                   bg={colors.chung}
                   width="40px"
-                  height={`${users?.data.all}px`}
+                  height={`${users?.data.all/2}px`}
                   borderRadius="md"
                 />
               </Tooltip>
@@ -167,7 +167,7 @@ const InfantMortalityRate = () => {
                 <Box
                   bg={colors.nam}
                   width="40px"
-                  height={`${users?.data.male}px`}
+                  height={`${users?.data.male/2}px`}
                   borderRadius="md"
                   mt={2}
                 />
@@ -179,7 +179,7 @@ const InfantMortalityRate = () => {
                 <Box
                   bg={colors.nu}
                   width="40px"
-                  height={`${users?.data.female}px`}
+                  height={`${users?.data.female/2}px`}
                   borderRadius="md"
                   mt={2}
                 />

@@ -87,7 +87,7 @@ const JobExp = () => {
           paddingBottom={2}
         >
           <Text fontSize={fontSize} color={'#07a6f0'}>
-            TỶ LỆ NGƯỜI TRÊN 18 ĐÃ ĐI LÀM 
+            TỶ LỆ NGƯỜI TRÊN 18 TUỔI ĐÃ ĐI LÀM 
           </Text>
         </Flex>
       </Flex>
