@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Select } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Select, useBreakpointValue } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {
   BarChart,
@@ -45,6 +45,7 @@ const PopulationPyramid = () => {
     return item;
   });
   console.log('datad2', districtFilter);
+  const chartHeight = useBreakpointValue({ base: 300, md: 500, lg: 615 });
 
   return (
     <Box mb="5" w={'100%'}>
@@ -72,7 +73,7 @@ const PopulationPyramid = () => {
       </FormControl>
 
       {/* Biểu đồ */}
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer width="100%" height={chartHeight}>
         <BarChart layout="vertical" data={newData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis

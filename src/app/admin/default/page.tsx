@@ -42,14 +42,23 @@ export default function Default() {
         <Header />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 10, xl: 10 }} gap="20px" mb="20px">
-        <Box gridColumn={{ base: 'span 1', md: 'span 7' }}>
-        <TotalSpent />
+      <SimpleGrid
+        columns={{ base: 1, md: 10, xl: 10 }}
+        gap="20px"
+        mb="20px"
+        alignItems="stretch" // Đảm bảo các phần tử có chiều cao bằng nhau
+      >
+        {/* Phần 7 */}
+        <Box gridColumn={{ base: 'span 1', md: 'span 7' }} h="100%">
+          <TotalSpent />
         </Box>
-        <Box gridColumn={{ base: 'span 1', md: 'span 3' }}>
-        <WeeklyRevenue />
+
+        {/* Phần 3 */}
+        <Box gridColumn={{ base: 'span 1', md: 'span 3' }} h="100%">
+          <WeeklyRevenue />
         </Box>
       </SimpleGrid>
+
       {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         
       </SimpleGrid> */}
