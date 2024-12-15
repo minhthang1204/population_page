@@ -45,14 +45,14 @@ const PopulationPyramid = () => {
     return item;
   });
   console.log('datad2', districtFilter);
-  const chartHeight = useBreakpointValue({ base: 300, md: 500, lg: 615 });
+  const chartHeight = useBreakpointValue({ base: 300, md: 500, lg: 640 });
 
   return (
     <Box mb="5" w={'100%'}>
       {/* Bộ lọc */}
 
 
-      <FormControl display="flex" alignItems="center" marginTop={2} marginBottom={2}>
+      <FormControl display="flex" alignItems="center" marginTop={10} marginBottom={10}>
         <FormLabel htmlFor="district-filter" mb="0">
           Xã/Huyện:
         </FormLabel>
@@ -73,12 +73,13 @@ const PopulationPyramid = () => {
       </FormControl>
 
       {/* Biểu đồ */}
+      {/* <div  style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 12}}> */}
       <ResponsiveContainer width="100%" height={chartHeight}>
-        <BarChart layout="vertical" data={newData}>
+        <BarChart   layout="vertical" data={newData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             type="number"
-            domain={[-50, 50]}
+            domain={[-15, 15]}
             tickFormatter={(value: number) => `${Math.abs(value)}%`}
           />
           <YAxis type="category" dataKey="AGE_GROUP" />
@@ -87,6 +88,7 @@ const PopulationPyramid = () => {
           <Bar dataKey="FEMALE" fill="#AA46BE" stackId="c" barSize={40}/>
         </BarChart>
       </ResponsiveContainer>
+      {/* </div> */}
     </Box>
   );
 };
