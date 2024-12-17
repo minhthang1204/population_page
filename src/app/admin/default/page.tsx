@@ -23,6 +23,7 @@ import MigrationAndUrbanization from 'views/admin/default/components/MigrationAn
 import MarriedBefore18 from 'views/admin/default/components/MarriedBefore18';
 import Graduation from 'views/admin/default/components/Graduation';
 import JobExp from 'views/admin/default/components/JobExp';
+import PieCard2 from 'views/admin/default/components/PieCard2';
 // Assets
 
 export default function Default() {
@@ -63,10 +64,11 @@ export default function Default() {
       {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         
       </SimpleGrid> */}
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 3 }} gap="20px" mb="20px">
         <PopulationStats />
         {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px"> */}
         <PieCard />
+        <PieCard2 />
         {/* </SimpleGrid> */}
       </SimpleGrid>
 

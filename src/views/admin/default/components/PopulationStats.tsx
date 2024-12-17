@@ -83,7 +83,7 @@ const PopulationStats = () => {
           justify={{ base: 'center', xl: 'center' }}
           borderBottom={'1px'}
           borderBottomColor={'#07a6f0'}
-          paddingBottom={2}
+          paddingBottom={10}
         >
           <Text fontSize={fontSize} color={'#07a6f0'}>
             TỔNG DÂN SỐ CHIA THEO GIỚI TÍNH

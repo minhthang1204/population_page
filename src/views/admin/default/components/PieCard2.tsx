@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Circle, Flex, Stack, Text, VStack } from '@chakra-ui/layout';
-import { Box, Card, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Card, FormControl, FormLabel, Select, useBreakpointValue } from '@chakra-ui/react';
 import { Group } from '@visx/group';
 import { Legend } from '@visx/legend';
 import { Pie } from '@visx/shape';
@@ -14,10 +14,22 @@ import { MotionBox } from './motion';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../../../utils/axiosInstance';
 import apiEndpoints from '../../../../../utils/apiConfig';
+import districtsData from '../../../../../public/caobang_districts.json';
 
-export default function Conversion(props: { [x: string]: any }) {
-  const fetchUsers = async () => {
-    const response = await axiosInstance.get(apiEndpoints.posts);
+export default function Conversion2(props: { [x: string]: any }) {
+
+  const [districtFilter, setDistrictFilter] = useState('all');
+  const [genderFilter, setGenderFilter] = useState('all');
+
+  const districts = districtsData.features.map((feature) => ({
+    OBJECTID: feature.properties.OBJECTID,
+    District: feature.properties.District,
+  }));
+  const fetchUsers = async (district: string) => {
+    const params = { hometown: district === 'all' ? '' : district };
+    const response = await axiosInstance.get(apiEndpoints.typePopulation, {
+      params
+    });
     return response.data;
   };
   const fetchAge = async () => {
@@ -25,10 +37,61 @@ export default function Conversion(props: { [x: string]: any }) {
     return response.data;
   };
   const colorMapping: any = {
-    senior: '#F28066',
-    workingAge: '#7C8C03',
-    youth: '#0367A6',
-  };
+    0: '#FF5733',
+    1: '#33FF57',
+    2: '#3357FF',
+    3: '#FF33A1',
+    4: '#A133FF',
+    5: '#33FFF5',
+    6: '#F5FF33',
+    7: '#FF8C00',
+    8: '#FF4500',
+    9: '#DA70D6',
+    10: '#EEE8AA',
+    11: '#8FBC8F',
+    12: '#FA8072',
+    13: '#FFD700',
+    14: '#E9967A',
+    15: '#20B2AA',
+    16: '#9370DB',
+    17: '#3CB371',
+    18: '#FF1493',
+    19: '#00FA9A',
+    20: '#6495ED',
+    21: '#C71585',
+    22: '#D2691E',
+    23: '#FF6347',
+    24: '#40E0D0',
+    25: '#D2B48C',
+    26: '#BA55D3',
+    27: '#32CD32',
+    28: '#FFA07A',
+    29: '#4682B4',
+    30: '#9ACD32',
+    31: '#00BFFF',
+    32: '#ADFF2F',
+    33: '#8A2BE2',
+    34: '#FF00FF',
+    35: '#FF69B4',
+    36: '#BDB76B',
+    37: '#7B68EE',
+    38: '#F4A460',
+    39: '#00CED1',
+    40: '#FFB6C1',
+    41: '#2F4F4F',
+    42: '#66CDAA',
+    43: '#DC143C',
+    44: '#F0E68C',
+    45: '#00FF7F',
+    46: '#CD5C5C',
+    47: '#7FFF00',
+    48: '#00FF00',
+    49: '#6B8E23',
+    50: '#FF7F50',
+    51: '#483D8B',
+    52: '#2E8B57',
+    53: '#BC8F8F',
+  };  
 
   const displayNames: { [key: string]: string } = {
     senior: '65+',
@@ -41,23 +104,25 @@ export default function Conversion(props: { [x: string]: any }) {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ['users'],
-    queryFn: ({ queryKey }) => fetchUsers(),
+    queryKey: ['usersType', districtFilter],
+    queryFn: ({ queryKey }) => fetchUsers(districtFilter),
   });
 
-  const { data: age } = useQuery({
-    queryKey: ['age'],
-    queryFn: ({ queryKey }) => fetchAge(),
-  });
-  console.log(users);
+  // const { data: age } = useQuery({
+  //   queryKey: ['age'],
+  //   queryFn: ({ queryKey }) => fetchAge(),
+  // });
+  console.log('users', users);
 
   const sample =
-    users &&
-    Object.keys(users.data).map((key) => ({
-      name: displayNames[key] || key.toUpperCase(), // Nếu không có tên hiển thị, dùng key gốc
-      value: users.data[key],
-      color: colorMapping[key],
-    }));
+  users?.data?.map((item: any, index: number) => ({
+    name: displayNames[item.ethnicity] || item.ethnicity.toUpperCase(), // Use 'item.type' as the key
+    value: item.total, // Assume the new array has 'value' key
+    color: colorMapping[index], // Map color based on 'item.type'
+  })) || [];
+
+  console.log(sample)
+
   const {
     colorScale,
     containerRef,
@@ -120,7 +185,7 @@ export default function Conversion(props: { [x: string]: any }) {
         pe="20px"
         pt="5px"
         w="100%"
-        marginTop={4}
+        marginTop={6}
       >
         <Flex
           align="center"
@@ -128,12 +193,33 @@ export default function Conversion(props: { [x: string]: any }) {
           justify={{ base: 'center', xl: 'center' }}
           borderBottom={'1px'}
           borderBottomColor={'#07a6f0'}
-          paddingBottom={2}
+          paddingBottom={10}
         >
           <Text fontSize={fontSize} color={'#07a6f0'}>
-            TỈ TRỌNG DÂN SỐ CHIA THEO NHÓM ĐỘ TUỔI(3 NHÓM)
+            TỈ TRỌNG DÂN TỘC
           </Text>
         </Flex>
+      </Flex>
+      <Flex justifyContent={'space-between'} marginBottom={8}>
+        <FormControl display="flex" alignItems="center" marginRight={10} marginTop={2} marginBottom={2}>
+          <FormLabel htmlFor="district-filter" mb="0">
+            Xã/Huyện:
+          </FormLabel>
+          <Select
+            id="district-filter"
+            value={districtFilter}
+            onChange={(e) => setDistrictFilter(e.target.value)}
+            ml="2"
+            w="200px"
+          >
+            <option value="all">Tất cả</option>
+            {districts.map((district) => (
+              <option key={district.OBJECTID} value={district.OBJECTID}>
+                {district.District}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
       </Flex>
       <Flex align="center" marginTop={12}>
         <Box pos="relative" ref={containerRef}>
@@ -205,7 +291,7 @@ export default function Conversion(props: { [x: string]: any }) {
           />
         </MotionBox>
       </Flex>
-      <Flex marginTop={12} marginLeft={12} w={'100%'}>
+      {/* <Flex marginTop={12} marginLeft={12} w={'100%'}>
         <VStack
           marginTop={8}
           borderTopWidth={1}
@@ -227,7 +313,7 @@ export default function Conversion(props: { [x: string]: any }) {
             {'%'}
           </Text>
         </VStack>
-      </Flex>
+      </Flex> */}
     </Card>
   );
 }
